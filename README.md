@@ -24,7 +24,7 @@ drawn from:
 
 > Awan, H. U. M., & Iqbal, M. *Microbial Co-inoculation for Biological Control of Forest Diseases in
 > Conifers: A Systematic Review of Defence Mechanisms and Host Transcriptomic Responses.*
-> A synthesis of 430 screened records and 20 primary studies (2005–2026). https://doi.org/10.1016/j.pmpp.2026.103432
+> https://doi.org/10.1016/j.pmpp.2026.103432
 
 Primary studies cited within the guide include Adomas et al. (2008), Arnerup et al. (2011, 2013),
 Grönberg et al. (2009), Lehr et al. (2007, 2008), Moraga-Suazo et al. (2024), Otero et al. (2020),
