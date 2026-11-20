@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="artifact-type" content="narrative">
   <meta name="design-style" content="canopy">
-  <title>Microbial Co-inoculation in Conifers — Class 12 Biology Study Guide</title>
+  <title>Microbial Co-inoculation in Conifers — Interactive Research Guide</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600&family=Literata:ital,opsz,wght@0,7..72,400..700;1,7..72,400..600&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
@@ -1007,7 +1007,7 @@
     <!-- SECTION 1: OVERVIEW -->
     <header class="study-section" id="sec-overview" data-section-name="01 · Overview">
       <div>
-        <p class="kicker">Class 12 Biology · Plant–Microbe Interactions</p>
+        <p class="kicker">Forest Pathology · Plant–Microbe Interactions</p>
         <h1 class="hero-title">Microbial Co-inoculation in Conifers</h1>
         <p class="lede">
           How beneficial fungi and bacteria team up on pine and spruce roots to prime host immunity, block deadly fungal rots, and reduce reliance on chemical fungicides.
@@ -1125,7 +1125,7 @@
     <!-- SECTION 2: KEY CONCEPTS -->
     <section class="study-section" id="sec-concepts" data-section-name="02 · Key Concepts">
       <div class="section-header">
-        <p class="kicker">Core Curriculum · 5 Sequential Concepts</p>
+        <p class="kicker">Core Concepts · 5 Sequential Modules</p>
         <h2 class="section-title">How Microbial Teamwork Protects Conifer Roots and Reprograms Gene Expression</h2>
       </div>
 
@@ -1488,7 +1488,7 @@
     <section class="study-section" id="sec-mistakes" data-section-name="05 · Common Mistakes">
       <div class="section-header">
         <p class="kicker">Exam &amp; Research Pitfalls</p>
-        <h2 class="section-title">Five Common Misconceptions Students Make on This Topic</h2>
+        <h2 class="section-title">Five Common Misconceptions About This Topic</h2>
       </div>
 
       <div class="mistakes-grid">
@@ -1538,7 +1538,7 @@
     <section class="study-section" id="sec-quiz" data-section-name="06 · Mastery Quiz">
       <div class="section-header">
         <p class="kicker">Check Your Understanding · 10 Questions</p>
-        <h2 class="section-title">Class 12 Self-Check Quiz with Instant Feedback</h2>
+        <h2 class="section-title">Self-Check Quiz with Instant Feedback</h2>
       </div>
 
       <div class="quiz-shell">
@@ -1791,34 +1791,51 @@
         return document.getElementById(id);
       }
 
+      var STORAGE_KEY = `conifer-coinoculation-study-state-v1`;
+
       async function saveState() {
         try {
           if (window.notebookAppApi && typeof window.notebookAppApi.setAppState === `function`) {
             await window.notebookAppApi.setAppState(appState);
+            return;
           }
         } catch (err) {
-          /* Ignore storage errors in standalone view */
+          /* Host API failed; fall through to browser storage */
+        }
+        try {
+          window.localStorage.setItem(STORAGE_KEY, JSON.stringify(appState));
+        } catch (err) {
+          /* Storage blocked (private mode, quota, disabled cookies) */
+        }
+      }
+
+      async function readSavedState() {
+        try {
+          if (window.notebookAppApi && typeof window.notebookAppApi.getAppState === `function`) {
+            return await window.notebookAppApi.getAppState();
+          }
+        } catch (err) {
+          /* Host API failed; fall through to browser storage */
+        }
+        try {
+          var raw = window.localStorage.getItem(STORAGE_KEY);
+          return raw ? JSON.parse(raw) : null;
+        } catch (err) {
+          return null;
         }
       }
 
       async function loadState() {
-        try {
-          if (window.notebookAppApi && typeof window.notebookAppApi.getAppState === `function`) {
-            var saved = await window.notebookAppApi.getAppState();
-            if (saved && typeof saved === `object`) {
-              if (saved.flippedCards) appState.flippedCards = saved.flippedCards;
-              if (saved.understoodCards) appState.understoodCards = saved.understoodCards;
-              if (saved.quizAnswers) appState.quizAnswers = saved.quizAnswers;
-              if (saved.sim) {
-                appState.sim.pathosystem = saved.sim.pathosystem || `masson`;
-                appState.sim.strategy = saved.sim.strategy || `consortium`;
-                appState.sim.leadHours = typeof saved.sim.leadHours === `number` ? saved.sim.leadHours : 168;
-                appState.sim.mech = saved.sim.mech || `complementary`;
-              }
-            }
-          }
-        } catch (err) {
-          /* Standalone fallback */
+        var saved = await readSavedState();
+        if (!saved || typeof saved !== `object`) return;
+        if (saved.flippedCards) appState.flippedCards = saved.flippedCards;
+        if (saved.understoodCards) appState.understoodCards = saved.understoodCards;
+        if (saved.quizAnswers) appState.quizAnswers = saved.quizAnswers;
+        if (saved.sim) {
+          appState.sim.pathosystem = saved.sim.pathosystem || `masson`;
+          appState.sim.strategy = saved.sim.strategy || `consortium`;
+          appState.sim.leadHours = typeof saved.sim.leadHours === `number` ? saved.sim.leadHours : 168;
+          appState.sim.mech = saved.sim.mech || `complementary`;
         }
       }
 
