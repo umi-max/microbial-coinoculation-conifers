@@ -54,4 +54,4 @@ Commit a new `index.html` to `main`. GitHub Pages redeploys automatically, usual
 
 ## Author
 
-Hafiz U. M. Awan — doctoral researcher in forest pathology, University of Helsinki.
+Hafiz Umair Masood Awan — University of Helsinki.
