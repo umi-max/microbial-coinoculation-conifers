@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>کونیفر درختوں میں جرثوموں کی مشترکہ تلقیح — خلاصہ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;500;600;700&family=Nunito+Sans:wght@400;600;700&family=Geist+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --background:#faf6ef; --surface-low:#f0eae0; --surface:#e8e0d2; --surface-high:#ddd3c2;
+  --on-surface:#2a302b; --on-surface-variant:#4a524b;
+  --primary:#366948; --on-primary:#fff; --primary-container:#d8efe0; --on-primary-container:#1f4d30;
+  --tertiary:#8f5822; --tertiary-container:#f2d4a7; --on-tertiary-container:#6e3f0c;
+  --error:#b83230; --error-container:#f9dedc; --on-error-container:#7a1c1a;
+  --outline-variant:#cbc5b8;
+  --urdu:'Noto Nastaliq Urdu', serif;
+  --latin:'Nunito Sans', sans-serif;
+  --mono:'Geist Mono', monospace;
+  --rounded:.625rem; --rounded-lg:1rem; --rounded-full:9999px;
+  --border-soft:1px solid rgb(203 197 184 / .65);
+  --shadow-soft:0 4px 20px rgb(42 48 43 / .06);
+}
+*,*::before,*::after{box-sizing:border-box;}
+html{overflow-x:clip;}
+body{
+  margin:0; background:var(--background); color:var(--on-surface);
+  font-family:var(--urdu); font-size:1.05rem; line-height:2.5;
+  -webkit-font-smoothing:antialiased; overflow-x:clip; text-align:right;
+}
+h1,h2,h3,p,.lede,.stat .note,.stat .label,.disclaimer,footer p{text-align:right;}
+/* Latin-script technical terms isolated inside RTL prose */
+.lat{font-family:var(--latin); font-size:.92em; line-height:1.5;
+  direction:ltr; unicode-bidi:isolate; display:inline-block; vertical-align:baseline;}
+.lat.it{font-style:italic;}
+.num{font-family:var(--mono); font-weight:600; direction:ltr; unicode-bidi:isolate;
+  display:inline-block; font-size:.9em;}
+.wrap{max-width:780px; margin:0 auto; padding:2rem 1.25rem 5rem;}
+.langbar{display:flex; justify-content:flex-start; padding:.75rem 0 1.5rem;}
+.langbar a{font-family:var(--latin); font-weight:700; font-size:.9rem; text-decoration:none;
+  color:var(--on-primary-container); background:var(--primary-container);
+  padding:.55rem 1rem; border-radius:var(--rounded-full); line-height:1.4;}
+.langbar a:hover{background:var(--surface-high);}
+.kicker{font-family:var(--urdu); font-size:.95rem; font-weight:600; color:var(--tertiary);
+  margin:0 0 .5rem; line-height:2.2;}
+h1{font-family:var(--urdu); font-weight:700; font-size:clamp(1.9rem,1.2rem+2.6vw,2.9rem);
+  line-height:2.1; margin:0 0 1rem; letter-spacing:0;}
+h2{font-family:var(--urdu); font-weight:700; font-size:clamp(1.35rem,1.1rem+1vw,1.75rem);
+  line-height:2.2; margin:0 0 .75rem;}
+h3{font-family:var(--urdu); font-weight:600; font-size:1.2rem; line-height:2.2; margin:0 0 .5rem;}
+p{margin:0 0 1.1rem;}
+.lede{font-size:1.12rem; color:var(--on-surface-variant); line-height:2.6;}
+section{margin-top:3rem;}
+.card{background:var(--surface-low); border-radius:var(--rounded-lg); padding:1.5rem 1.65rem; margin-bottom:1.25rem;}
+.card.alert{background:var(--error-container); color:var(--on-error-container);}
+.card.good{background:var(--primary-container); color:var(--on-primary-container);}
+.stats{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(230px,100%),1fr)); gap:1rem; margin-top:1.5rem;}
+.stat{background:var(--surface-low); border-radius:var(--rounded-lg); padding:1.25rem 1.4rem;}
+.stat .label{font-size:.9rem; color:var(--on-surface-variant); line-height:2.1;}
+.stat .figure{font-family:var(--mono); font-weight:600; font-size:2rem; color:var(--primary);
+  direction:ltr; unicode-bidi:isolate; display:block; margin:.35rem 0 .5rem; line-height:1.3;}
+.stat.warn .figure{color:var(--error);}
+.stat .note{font-size:.92rem; color:var(--on-surface-variant); line-height:2.15;}
+.cond{border-right:4px solid var(--primary); padding-right:1.1rem; margin-bottom:2rem;}
+.cond.bad{border-right-color:var(--error);}
+.tag{display:inline-block; direction:ltr; unicode-bidi:isolate;
+  font-family:var(--latin); font-size:.78rem; font-weight:700;
+  padding:.25rem .7rem; border-radius:var(--rounded-full); background:var(--tertiary-container);
+  color:var(--on-tertiary-container); line-height:1.5; margin-bottom:.4rem;}
+.cta{display:block; background:var(--primary); color:var(--on-primary); border-radius:var(--rounded-lg);
+  padding:1.6rem 1.5rem; text-align:center; text-decoration:none; margin-top:2.5rem; box-shadow:var(--shadow-soft);}
+.cta .cta-ur{font-family:var(--urdu); font-weight:700; font-size:1.25rem; line-height:2.2; display:block;}
+.cta .cta-en{font-family:var(--latin); font-weight:600; font-size:.95rem; opacity:.9;
+  direction:ltr; display:block; margin-top:.5rem; line-height:1.5; word-break:break-word;}
+footer{margin-top:3.5rem; padding-top:1.75rem; border-top:var(--border-soft);
+  color:var(--on-surface-variant); font-size:.95rem; line-height:2.3;}
+footer .src{font-family:var(--latin); direction:ltr; text-align:left; font-size:.88rem;
+  line-height:1.6; margin-top:.75rem; display:block;}
+.disclaimer{background:var(--surface); border-radius:var(--rounded); padding:1rem 1.2rem;
+  font-size:.92rem; line-height:2.2; margin-top:1.5rem;}
+</style>
+</head>
+<body>
+<main class="wrap">
+
+  <nav class="langbar"><a href="../">Read in English</a></nav>
+
+  <p class="kicker">جنگلاتی پیتھالوجی · پودوں اور جرثوموں کا تعامل</p>
+  <h1>کونیفر درختوں میں جرثوموں کی مشترکہ تلقیح</h1>
+  <p class="lede">
+    فائدہ مند فنجائی اور بیکٹیریا چیڑ اور سپروس کی جڑوں پر مل کر کس طرح کام کرتے ہیں — تاکہ درخت کا
+    مدافعتی نظام پہلے سے چوکنا ہو جائے، جڑوں کی مہلک سڑاند رُک جائے، اور کیمیائی فنجی کش ادویات پر
+    انحصار کم ہو۔ یہ ایک منظم جائزے <span class="lat">(systematic review)</span> کا مختصر خلاصہ ہے۔
+  </p>
+
+  <div class="stats">
+    <div class="stat">
+      <span class="label">چھانٹا گیا لٹریچر</span>
+      <span class="figure">430 → 20</span>
+      <span class="note"><span class="lat">Web of Science</span>، <span class="lat">PubMed</span>،
+      <span class="lat">Scopus</span> اور <span class="lat">CABI</span> سے لیے گئے ریکارڈ؛ ان میں سے
+      20 مطالعات شمولیت کے معیار پر پورے اترے۔</span>
+    </div>
+    <div class="stat">
+      <span class="label">غالب دفاعی راستہ</span>
+      <span class="figure">69%</span>
+      <span class="note">جن 13 مطالعات میں ہارمونی راستے کا تعین ممکن تھا، ان میں سے 9 میں
+      جیسمونک ایسڈ / ایتھیلین <span class="lat">(jasmonic acid / ethylene)</span> غالب رہا۔</span>
+    </div>
+    <div class="stat warn">
+      <span class="label">خالصتاً کھیت کے تجربات</span>
+      <span class="figure">0 / 20</span>
+      <span class="note">تمام شواہد لیبارٹری، گرین ہاؤس یا نرسری سے آئے۔ بالغ درختوں پر عملی
+      حالات میں کوئی آزمائش نہیں ہوئی۔</span>
+    </div>
+  </div>
+
+  <section>
+    <h2>تین شرائط جو کامیابی کا فیصلہ کرتی ہیں</h2>
+    <p>
+      مشترکہ تلقیح <span class="lat">(co-inoculation)</span> ہمیشہ اکیلے ایجنٹ سے بہتر نہیں ہوتی۔
+      جائزے کے مطابق اس کی برتری تین شرائط پر منحصر ہے، اور ان میں سے ایک بھی غائب ہو تو تحفظ
+      ناکام ہو سکتا ہے۔
+    </p>
+
+    <div class="cond">
+      <span class="tag">1 · Timing</span>
+      <h3>پیشگی تلقیح کا وقت</h3>
+      <p>
+        فائدہ مند جرثومے کو پیتھوجن سے <strong>پہلے</strong> جڑوں پر قابض ہونا ضروری ہے تاکہ وہ
+        میزبان کے دفاع کو چوکنا کر سکے۔ چیڑ <span class="lat it">(Pinus sylvestris)</span> میں بے
+        ضرر <span class="lat it">Rhizoctonia</span> کو پیتھوجن سے <span class="num">168</span> گھنٹے
+        (7 دن) پہلے دینے سے پیتھوجن دب گیا؛ جبکہ دونوں کو ایک ہی وقت میں دینے پر پیتھوجن نے جڑوں کی
+        جگہیں پہلے سنبھال لیں <span class="lat">(Grönberg et al., 2009)</span>۔
+      </p>
+    </div>
+
+    <div class="cond">
+      <span class="tag">2 · Complementary mechanisms</span>
+      <h3>ایک دوسرے کی تکمیل کرنے والے طریقۂ کار</h3>
+      <p>
+        بہترین نتیجہ تب ملتا ہے جب ایک ایجنٹ براہِ راست پیتھوجن پر حملہ کرے اور دوسرا میزبان کی
+        مدافعت کو تیار کرے۔ <span class="lat it">Pinus massoniana</span> میں فنجائی
+        <span class="lat it">Trichoderma longibrachiatum</span> اور بیکٹیریا
+        <span class="lat it">Burkholderia stabilis</span> کے مجموعے نے
+        <span class="lat it">Fusarium oxysporum</span> کی شدت <span class="num">74%</span> کم کی —
+        جو کسی بھی اکیلے جرثومے سے بہتر تھا <span class="lat">(Yu et al., 2024)</span>۔
+      </p>
+    </div>
+
+    <div class="cond bad">
+      <span class="tag">3 · Host receptivity</span>
+      <h3>میزبان کی قبولیت — اور ناکامی کی صورت</h3>
+      <p>
+        اگر جوڑ موزوں نہ ہو تو تحفظ الٹا نقصان دے سکتا ہے۔
+        <span class="lat it">Streptomyces</span> <span class="lat">sp. AcH 505</span> نے سپروس کی
+        مدافعت کو دبا دیا، اور چونکہ <span class="lat it">H. abietinum</span> کا
+        <span class="lat">strain 331</span> اس کی اینٹی بائیوٹک کے خلاف مزاحم تھا، جڑوں کا انفیکشن
+        کم ہونے کے بجائے <strong>بڑھ گیا</strong> <span class="lat">(Lehr et al., 2007)</span>۔
+      </p>
+    </div>
+  </section>
+
+  <section>
+    <h2>کونیفر، انجیوسپرم کے اصول پر نہیں چلتے</h2>
+    <div class="card good">
+      <p style="margin:0;">
+        درسی کتب کے پھولدار پودوں <span class="lat it">(Arabidopsis)</span> میں سیلیسلک ایسڈ
+        <span class="lat">(SA)</span> اور جیسمونک ایسڈ / ایتھیلین <span class="lat">(JA/ET)</span>
+        عموماً ایک دوسرے کے مخالف سمجھے جاتے ہیں۔ کونیفر میں ایسا نہیں: <span class="num">69%</span>
+        مطالعات میں <span class="lat">JA/ET</span> غالب تھا، مگر <span class="num">23%</span> میں
+        دونوں راستے ایک ساتھ متحرک ہوئے۔ یعنی کونیفر ایک لچکدار، باہم تعاون کرنے والا ہارمونی نظام
+        استعمال کرتے ہیں۔
+      </p>
+    </div>
+  </section>
+
+  <section>
+    <h2>ایک کھری حد</h2>
+    <div class="card alert">
+      <p style="margin:0;">
+        زیرِ جائزہ <span class="num">20</span> میں سے کسی ایک مطالعے نے بھی حقیقی جنگل یا شجرکاری کے
+        عملی حالات میں، یا بالغ عمر کے درختوں پر آزمائش نہیں کی۔ نہ ہی کسی نے پیتھوجن کے ارتقاء کی
+        نگرانی کی، اور نہ فنجی کش ادویات کے مقابلے میں معاشی لاگت کا تجزیہ پیش کیا۔ لیبارٹری کی
+        کارکردگی ایک نقطۂ آغاز ہے — عملی ضمانت نہیں۔
+      </p>
+    </div>
+  </section>
+
+  <a class="cta" href="../">
+    <span class="cta-ur">مکمل انٹرایکٹو گائیڈ پڑھیں — انگریزی میں</span>
+    <span class="cta-en">Simulator · flashcards · 10-question quiz — free, no sign-up</span>
+  </a>
+
+  <div class="disclaimer">
+    یہ صفحہ انگریزی گائیڈ کا مختصر اردو خلاصہ ہے۔ تمام اعداد و شمار، جینز کے نام اور حوالہ جات
+    اصل انگریزی متن میں تفصیل سے موجود ہیں۔
+  </div>
+
+  <footer>
+    <p style="margin:0;">
+      ماخذ: یہ خلاصہ درج ذیل منظم جائزے پر مبنی ہے (430 ریکارڈز کی اسکریننگ، 20 بنیادی مطالعات):
+    </p>
+    <span class="src">
+      Awan, H. U. M., &amp; Iqbal, M. — <em>Microbial Co-inoculation for Biological Control of
+      Forest Diseases in Conifers: A Systematic Review of Defence Mechanisms and Host
+      Transcriptomic Responses.</em>
+    </span>
+    <p style="margin:1.25rem 0 0;">
+      تیار کردہ: حافظ عمیر مسعود اعوان — جنگلاتی پیتھالوجی میں ڈاکٹریٹ کے محقق،
+      یونیورسٹی آف ہیلسنکی، فن لینڈ۔
+    </p>
+  </footer>
+
+</main>
+</body>
+</html>
