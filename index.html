@@ -1,0 +1,2291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="artifact-type" content="narrative">
+  <meta name="design-style" content="canopy">
+  <title>Microbial Co-inoculation in Conifers — Class 12 Biology Study Guide</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600&family=Literata:ital,opsz,wght@0,7..72,400..700;1,7..72,400..600&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+
+      /* Page and surfaces (earth strata) */
+      --background: #faf6ef;
+      --surface-container-low: #f0eae0;
+      --surface-container: #e8e0d2;
+      --surface-container-high: #ddd3c2;
+
+      /* Ink */
+      --on-surface: #2a302b;
+      --on-surface-variant: #4a524b;
+
+      /* Lines */
+      --outline: #737872;
+      --outline-variant: #cbc5b8;
+
+      /* Accents */
+      --primary: #366948;
+      --on-primary: #ffffff;
+      --primary-container: #d8efe0;
+      --on-primary-container: #1f4d30;
+      --secondary: #5c635c;
+      --tertiary: #8f5822;
+      --tertiary-container: #f2d4a7;
+      --on-tertiary-container: #6e3f0c;
+      --error: #b83230;
+      --on-error: #ffffff;
+      --error-container: #f9dedc;
+      --on-error-container: #7a1c1a;
+
+      /* Data series */
+      --data-1: #366948;
+      --data-2: #8f5822;
+      --data-3: #a85438;
+      --data-4: #4b6b78;
+      --data-context: #b5b0a3;
+
+      /* Fonts */
+      --font-headline: 'Literata', serif;
+      --font-body: 'Nunito Sans', sans-serif;
+      --font-label: 'Geist Mono', monospace;
+
+      /* Shape */
+      --rounded: 0.625rem;
+      --rounded-lg: 1rem;
+      --rounded-sm: 0.375rem;
+      --rounded-full: 9999px;
+
+      /* Effects */
+      --shadow-soft: 0 4px 20px rgb(42 48 43 / 0.06);
+      --shadow-soft-hover: 0 8px 28px rgb(42 48 43 / 0.09);
+      --border-soft: 1px solid rgb(203 197 184 / 0.65);
+      --focus-glow: 0 0 0 4px rgb(54 105 72 / 0.18);
+
+      /* Shared semantic & focus tokens */
+      --positive: #366948;
+      --warning: #8f5822;
+      --focus: #366948;
+
+      /* Type scale (Narrative) */
+      --display-size: clamp(2.25rem, 1.4rem + 3.2vw, 3.65rem);
+      --headline-size: clamp(1.625rem, 1.2rem + 1.6vw, 2.25rem);
+      --subhead-size: clamp(1.1875rem, 1.05rem + 0.45vw, 1.4rem);
+      --body-size: clamp(1.0625rem, 1rem + 0.2vw, 1.125rem);
+      --label-size: clamp(0.75rem, 0.72rem + 0.12vw, 0.8125rem);
+
+      /* Spacing scale (4pt base) */
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 1.5rem;
+      --space-xl: 2.5rem;
+      --space-2xl: 4rem;
+      --space-3xl: 6rem;
+
+      /* Motion */
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --dur-micro: 120ms;
+      --dur-short: 220ms;
+      --dur-long: 420ms;
+    }
+
+    /* Base reset */
+    *, *::before, *::after { box-sizing: border-box; }
+    html {
+      scroll-behavior: smooth;
+      overflow-x: clip;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      overflow-x: clip;
+      margin: 0;
+      padding: 0;
+      background-color: var(--background);
+      color: var(--on-surface);
+      font-family: var(--font-body);
+      font-size: var(--body-size);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+    header { position: static !important; }
+    button, input, select, textarea { font-family: inherit; }
+
+    /* Focus rings */
+    :focus-visible {
+      outline: 2px solid var(--focus);
+      outline-offset: 2px;
+      box-shadow: var(--focus-glow);
+    }
+
+    /* Fixed slim reading progress rail (outside header) */
+    .progress-rail {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 50;
+      background-color: var(--surface-container-low);
+      border-bottom: var(--border-soft);
+      padding: var(--space-sm) var(--space-lg);
+    }
+    .progress-rail-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-md);
+    }
+    .progress-meta {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      min-width: 0;
+    }
+    .progress-kicker {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--tertiary);
+      white-space: nowrap;
+    }
+    .progress-current-section {
+      font-family: var(--font-body);
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: var(--on-surface);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .progress-track-wrap {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      flex: 1;
+      max-width: 360px;
+      justify-content: flex-end;
+    }
+    .progress-track {
+      flex: 1;
+      height: 8px;
+      border-radius: var(--rounded-full);
+      background-color: var(--surface-container-high);
+      overflow: hidden;
+      min-width: 80px;
+    }
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background-color: var(--primary);
+      border-radius: var(--rounded-full);
+      transition: width var(--dur-short) var(--ease-out);
+    }
+    .progress-pct {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 600;
+      color: var(--primary);
+      min-width: 3.2em;
+      text-align: right;
+    }
+
+    /* Main Layout */
+    .page-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-2xl);
+      padding: calc(var(--space-2xl) + var(--space-md)) var(--space-lg) var(--space-3xl);
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+    .page-grid * { min-width: 0; }
+
+    /* Typography */
+    h1, h2, h3, h4 {
+      font-family: var(--font-headline);
+      color: var(--on-surface);
+      margin: 0;
+    }
+    .hero-title {
+      font-size: var(--display-size);
+      font-weight: 600;
+      line-height: 1.12;
+      letter-spacing: -0.015em;
+      max-width: 22ch;
+    }
+    .section-title {
+      font-size: var(--headline-size);
+      font-weight: 600;
+      line-height: 1.18;
+      letter-spacing: -0.01em;
+    }
+    .subhead {
+      font-size: var(--subhead-size);
+      font-weight: 600;
+      line-height: 1.25;
+    }
+    .kicker {
+      font-family: var(--font-body);
+      font-size: var(--label-size);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--tertiary);
+      margin: 0 0 var(--space-sm) 0;
+    }
+    .mono-label {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--secondary);
+    }
+    .lede {
+      font-size: clamp(1.125rem, 1.05rem + 0.35vw, 1.28rem);
+      line-height: 1.6;
+      color: var(--on-surface-variant);
+      max-width: 65ch;
+      margin: var(--space-md) 0 0 0;
+    }
+    p {
+      margin: 0 0 var(--space-md) 0;
+      max-width: 68ch;
+    }
+    p:last-child { margin-bottom: 0; }
+
+    /* Canopy Almanac Section Rhythm Strip */
+    .season-strip {
+      background-color: var(--surface-container-low);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-md) var(--space-lg);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-md);
+      margin-top: var(--space-xl);
+    }
+    .season-strip-meta {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+    .season-cells {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-xs);
+    }
+    .season-cell {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 600;
+      min-height: 44px;
+      padding: 0 var(--space-md);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-xs);
+      border-radius: var(--rounded);
+      background-color: var(--surface-container-high);
+      color: var(--on-surface-variant);
+      border: 0;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-color var(--dur-micro) var(--ease-out), transform var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out);
+    }
+    .season-cell:hover {
+      background-color: var(--surface-container);
+      transform: translateY(-1px);
+    }
+    .season-cell.is-prep {
+      background-color: var(--tertiary-container);
+      color: var(--on-tertiary-container);
+    }
+    .season-cell.is-peak {
+      background-color: var(--primary);
+      color: var(--on-primary);
+    }
+
+    /* Canopy Cards */
+    .card {
+      background-color: var(--surface-container-low);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      border: 0;
+    }
+    .card.is-leaf-highlight {
+      background-color: var(--primary-container);
+      color: var(--on-primary-container);
+    }
+    .card.is-leaf-highlight h3,
+    .card.is-leaf-highlight h4,
+    .card.is-leaf-highlight .key-figure,
+    .card.is-leaf-highlight .mono-label {
+      color: var(--on-primary-container);
+    }
+    .card.is-interactive {
+      box-shadow: var(--shadow-soft);
+      transition: box-shadow var(--dur-short) var(--ease-out), transform var(--dur-short) var(--ease-out);
+    }
+    .card.is-interactive:hover {
+      box-shadow: var(--shadow-soft-hover);
+      transform: translateY(-2px);
+    }
+
+    /* Key Figures */
+    .stat-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
+      gap: var(--space-md);
+      margin-top: var(--space-lg);
+    }
+    .stat-tile {
+      background-color: var(--surface-container-low);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-md) var(--space-lg);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+    .key-figure {
+      font-family: var(--font-headline);
+      font-size: clamp(1.75rem, 1.4rem + 1vw, 2.35rem);
+      font-weight: 600;
+      line-height: 1.1;
+      font-variant-numeric: lining-nums tabular-nums;
+      color: var(--primary);
+    }
+    .stat-caption {
+      font-size: 0.9375rem;
+      color: var(--on-surface-variant);
+      line-height: 1.45;
+    }
+
+    /* Overview Split */
+    .asymmetric-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+      gap: var(--space-lg);
+      align-items: start;
+      margin-top: var(--space-lg);
+    }
+
+    /* Section framing */
+    .study-section {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-lg);
+      scroll-margin-top: 4.5rem;
+    }
+    .section-header {
+      border-bottom: var(--border-soft);
+      padding-bottom: var(--space-md);
+    }
+
+    /* Concept Modules */
+    .concept-stack {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xl);
+    }
+    .concept-block {
+      background-color: var(--surface-container-low);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-xl);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-lg);
+    }
+    .concept-top {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: var(--space-sm);
+    }
+    .concept-badge {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 600;
+      padding: var(--space-xs) var(--space-md);
+      border-radius: var(--rounded-full);
+      background-color: var(--tertiary-container);
+      color: var(--on-tertiary-container);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .concept-columns {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+      gap: var(--space-lg);
+      align-items: start;
+    }
+    .example-box {
+      background-color: var(--background);
+      border-radius: var(--rounded);
+      padding: var(--space-md) var(--space-lg);
+      border: var(--border-soft);
+    }
+    .example-box-title {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--primary);
+      margin-bottom: var(--space-xs);
+    }
+    .formula-band {
+      background-color: var(--surface-container);
+      border-radius: var(--rounded);
+      padding: var(--space-md) var(--space-lg);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+    .formula-code {
+      font-family: var(--font-label);
+      font-size: 0.9375rem;
+      font-weight: 500;
+      color: var(--on-surface);
+      line-height: 1.5;
+      overflow-wrap: anywhere;
+    }
+
+    /* Dual vs Consortium Mini-Diagram */
+    .diagram-pair {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
+      gap: var(--space-md);
+    }
+    .diagram-node-card {
+      background-color: var(--background);
+      border-radius: var(--rounded);
+      padding: var(--space-md);
+      border: var(--border-soft);
+    }
+    .pill-tag {
+      display: inline-block;
+      font-family: var(--font-label);
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 2px 10px;
+      border-radius: var(--rounded-full);
+      background-color: var(--primary-container);
+      color: var(--on-primary-container);
+      margin-right: var(--space-xs);
+      margin-bottom: var(--space-xs);
+    }
+    .pill-tag.is-ochre {
+      background-color: var(--tertiary-container);
+      color: var(--on-tertiary-container);
+    }
+    .pill-tag.is-alert {
+      background-color: var(--error-container);
+      color: var(--on-error-container);
+    }
+
+    /* Tables */
+    .table-wrap {
+      overflow-x: auto;
+      border-radius: var(--rounded);
+      background-color: var(--background);
+      border: var(--border-soft);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.95rem;
+    }
+    thead tr {
+      background-color: var(--surface-container);
+    }
+    th {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--secondary);
+      padding: var(--space-md);
+      border-bottom: var(--border-soft);
+    }
+    td {
+      padding: var(--space-md);
+      border-bottom: var(--border-soft);
+      vertical-align: top;
+      color: var(--on-surface);
+    }
+    tbody tr:last-child td { border-bottom: 0; }
+    .num-cell {
+      font-family: var(--font-label);
+      font-variant-numeric: tabular-nums;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    /* SVG Charts */
+    .chart-panel {
+      background-color: var(--background);
+      border-radius: var(--rounded);
+      padding: var(--space-lg);
+      border: var(--border-soft);
+    }
+    .chart-title {
+      font-family: var(--font-headline);
+      font-size: 1.0625rem;
+      font-weight: 600;
+      margin-bottom: var(--space-xs);
+    }
+    .chart-subtitle {
+      font-size: 0.875rem;
+      color: var(--on-surface-variant);
+      margin-bottom: var(--space-md);
+    }
+    .svg-chart {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* Interactive Lab Simulator */
+    .sim-shell {
+      background-color: var(--surface-container-low);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-xl);
+      box-shadow: var(--shadow-soft);
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+      gap: var(--space-xl);
+      align-items: start;
+    }
+    .sim-controls {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-lg);
+    }
+    .control-group {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+    .control-label {
+      font-family: var(--font-label);
+      font-size: var(--label-size);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--on-surface);
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+    .control-select {
+      width: 100%;
+      min-height: 44px;
+      padding: var(--space-sm) var(--space-lg) var(--space-sm) var(--space-md);
+      border-radius: var(--rounded);
+      border: var(--border-soft);
+      background-color: var(--background);
+      color: var(--on-surface);
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .segmented-row {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--space-sm);
+    }
+    .segmented-two {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-sm);
+    }
+    .seg-btn {
+      min-height: 44px;
+      padding: var(--space-sm) var(--space-sm);
+      border-radius: var(--rounded);
+      border: var(--border-soft);
+      background-color: var(--background);
+      color: var(--on-surface);
+      font-size: 0.875rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out);
+    }
+    .seg-btn:hover {
+      background-color: var(--surface-container);
+    }
+    .seg-btn[aria-pressed="true"] {
+      background-color: var(--primary);
+      color: var(--on-primary);
+      border-color: var(--primary);
+    }
+    .slider-pair {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+    }
+    input[type="range"] {
+      flex: 1;
+      accent-color: var(--primary);
+      min-height: 44px;
+      cursor: pointer;
+    }
+    .num-input {
+      width: 5.5rem;
+      min-height: 44px;
+      padding: var(--space-sm);
+      border-radius: var(--rounded);
+      border: var(--border-soft);
+      background-color: var(--background);
+      color: var(--on-surface);
+      font-family: var(--font-label);
+      font-weight: 600;
+      text-align: center;
+    }
+
+    .sim-output {
+      background-color: var(--background);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      border: var(--border-soft);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+    .sim-status-banner {
+      border-radius: var(--rounded);
+      padding: var(--space-md);
+      background-color: var(--primary-container);
+      color: var(--on-primary-container);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-xs);
+    }
+    .sim-status-banner.is-warn {
+      background-color: var(--tertiary-container);
+      color: var(--on-tertiary-container);
+    }
+    .sim-status-banner.is-alert {
+      background-color: var(--error-container);
+      color: var(--on-error-container);
+    }
+    .sim-metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-md);
+    }
+    .sim-metric-box {
+      background-color: var(--surface-container-low);
+      border-radius: var(--rounded);
+      padding: var(--space-md);
+    }
+    .sim-bar-track {
+      height: 14px;
+      background-color: var(--surface-container-high);
+      border-radius: var(--rounded-full);
+      overflow: hidden;
+      margin-top: var(--space-sm);
+    }
+    .sim-bar-fill {
+      height: 100%;
+      width: 0%;
+      background-color: var(--primary);
+      border-radius: var(--rounded-full);
+      transition: width var(--dur-short) var(--ease-out), background-color var(--dur-short) var(--ease-out);
+    }
+
+    /* Flip Cards */
+    .flashcard-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-md);
+      background-color: var(--surface-container-low);
+      padding: var(--space-md) var(--space-lg);
+      border-radius: var(--rounded-lg);
+    }
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(265px, 100%), 1fr));
+      gap: var(--space-lg);
+    }
+    .flip-card {
+      perspective: 1000px;
+      min-height: 250px;
+      position: relative;
+    }
+    .flip-card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      min-height: 250px;
+      transform-style: preserve-3d;
+      transition: transform var(--dur-long) var(--ease-in-out);
+    }
+    .flip-card.is-flipped .flip-card-inner {
+      transform: rotateY(180deg);
+    }
+    .flip-face {
+      position: absolute;
+      inset: 0;
+      backface-visibility: hidden;
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: var(--shadow-soft);
+    }
+    .flip-front {
+      background-color: var(--surface-container-low);
+      color: var(--on-surface);
+    }
+    .flip-back {
+      background-color: var(--primary);
+      color: var(--on-primary);
+      transform: rotateY(180deg);
+    }
+    .flip-term {
+      font-family: var(--font-headline);
+      font-size: 1.3rem;
+      font-weight: 600;
+      line-height: 1.25;
+      margin: var(--space-sm) 0;
+    }
+    .flip-def {
+      font-size: 0.95rem;
+      line-height: 1.55;
+      margin: 0;
+    }
+    .flip-actions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-sm);
+      margin-top: var(--space-md);
+    }
+
+    /* Buttons */
+    .btn {
+      min-height: 44px;
+      padding: var(--space-sm) var(--space-md);
+      border-radius: var(--rounded);
+      border: 0;
+      font-size: 0.9375rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-xs);
+      transition: background-color var(--dur-micro) var(--ease-out), transform var(--dur-micro) var(--ease-out);
+    }
+    .btn:active { transform: translateY(1px); }
+    .btn-primary {
+      background-color: var(--primary);
+      color: var(--on-primary);
+    }
+    .btn-primary:hover { background-color: var(--on-primary-container); }
+    .btn-secondary {
+      background-color: var(--surface-container);
+      color: var(--on-surface);
+    }
+    .btn-secondary:hover { background-color: var(--surface-container-high); }
+    .btn-on-dark {
+      background-color: var(--primary-container);
+      color: var(--on-primary-container);
+    }
+    .btn-on-dark:hover { background-color: var(--background); }
+
+    /* Common Mistakes Cards */
+    .mistakes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+      gap: var(--space-lg);
+    }
+    .mistake-card {
+      background-color: var(--surface-container-low);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+    .myth-banner {
+      background-color: var(--error-container);
+      color: var(--on-error-container);
+      padding: var(--space-sm) var(--space-md);
+      border-radius: var(--rounded);
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+    .reality-banner {
+      background-color: var(--background);
+      border: var(--border-soft);
+      padding: var(--space-md);
+      border-radius: var(--rounded);
+      font-size: 0.96rem;
+      line-height: 1.55;
+      flex: 1;
+    }
+
+    /* Quiz */
+    .quiz-shell {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-lg);
+    }
+    .quiz-scorebar {
+      background-color: var(--surface-container-low);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-md) var(--space-lg);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-md);
+    }
+    .quiz-question-card {
+      background-color: var(--surface-container-low);
+      border-radius: var(--rounded-lg);
+      padding: var(--space-lg);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+    .quiz-q-title {
+      font-family: var(--font-headline);
+      font-size: 1.15rem;
+      font-weight: 600;
+      line-height: 1.35;
+    }
+    .quiz-options {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-sm);
+    }
+    .quiz-opt-btn {
+      min-height: 48px;
+      padding: var(--space-md);
+      border-radius: var(--rounded);
+      border: var(--border-soft);
+      background-color: var(--background);
+      color: var(--on-surface);
+      text-align: left;
+      font-size: 0.95rem;
+      font-weight: 600;
+      line-height: 1.4;
+      cursor: pointer;
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-sm);
+      transition: background-color var(--dur-micro) var(--ease-out), box-shadow var(--dur-micro) var(--ease-out);
+    }
+    .quiz-opt-btn:hover:not(:disabled) {
+      background-color: var(--surface-container);
+    }
+    .quiz-opt-btn:disabled {
+      cursor: default;
+    }
+    .quiz-opt-btn.is-correct {
+      background-color: var(--primary-container);
+      color: var(--on-primary-container);
+      border-color: var(--primary);
+    }
+    .quiz-opt-btn.is-wrong {
+      background-color: var(--error-container);
+      color: var(--on-error-container);
+      border-color: var(--error);
+    }
+    .quiz-opt-letter {
+      font-family: var(--font-label);
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+    .quiz-feedback {
+      padding: var(--space-md);
+      border-radius: var(--rounded);
+      font-size: 0.95rem;
+      line-height: 1.5;
+      display: none;
+    }
+    .quiz-feedback.is-visible { display: block; }
+    .quiz-feedback.is-ok {
+      background-color: var(--primary-container);
+      color: var(--on-primary-container);
+    }
+    .quiz-feedback.is-err {
+      background-color: var(--error-container);
+      color: var(--on-error-container);
+    }
+
+    /* Footer */
+    .source-footer {
+      border-top: var(--border-soft);
+      padding-top: var(--space-xl);
+      color: var(--on-surface-variant);
+      font-size: 0.9375rem;
+    }
+
+    /* Responsive Breakpoints */
+    @media (max-width: 820px) {
+      .asymmetric-grid,
+      .concept-columns,
+      .sim-shell {
+        grid-template-columns: 1fr;
+      }
+      .quiz-options {
+        grid-template-columns: 1fr;
+      }
+    }
+    @media (max-width: 640px) {
+      .page-grid {
+        grid-template-columns: 1fr;
+        padding: calc(var(--space-2xl) + var(--space-lg)) var(--space-md) var(--space-2xl);
+        gap: var(--space-xl);
+      }
+      .concept-block,
+      .sim-shell {
+        padding: var(--space-lg);
+      }
+      .progress-rail {
+        padding: var(--space-sm) var(--space-md);
+      }
+      .progress-track-wrap {
+        max-width: 150px;
+      }
+      .segmented-row {
+        grid-template-columns: 1fr;
+      }
+      .sim-metrics-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Fixed Section Progress Bar -->
+  <nav class="progress-rail" aria-label="Study progress">
+    <div class="progress-rail-inner">
+      <div class="progress-meta">
+        <span class="progress-kicker">Section</span>
+        <span class="progress-current-section" id="progress-section-label">01 · Overview</span>
+      </div>
+      <div class="progress-track-wrap">
+        <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="scroll-progress-bar">
+          <div class="progress-fill" id="scroll-progress-fill"></div>
+        </div>
+        <span class="progress-pct" id="scroll-progress-pct">0%</span>
+      </div>
+    </div>
+  </nav>
+
+  <main class="page-grid">
+    <!-- SECTION 1: OVERVIEW -->
+    <header class="study-section" id="sec-overview" data-section-name="01 · Overview">
+      <div>
+        <p class="kicker">Class 12 Biology · Plant–Microbe Interactions</p>
+        <h1 class="hero-title">Microbial Co-inoculation in Conifers</h1>
+        <p class="lede">
+          How beneficial fungi and bacteria team up on pine and spruce roots to prime host immunity, block deadly fungal rots, and reduce reliance on chemical fungicides.
+        </p>
+      </div>
+
+      <!-- Canopy Almanac Navigation Strip -->
+      <div class="season-strip" aria-label="Study modules">
+        <div class="season-strip-meta">
+          <span class="mono-label">Study Path · 6 Modules</span>
+          <span style="font-size: 0.9rem; color: var(--on-surface-variant);">Jump to any module or scroll through sequentially</span>
+        </div>
+        <div class="season-cells" id="module-nav-cells">
+          <a class="season-cell is-peak" href="#sec-overview" data-target="sec-overview">01 Overview</a>
+          <a class="season-cell is-prep" href="#sec-concepts" data-target="sec-concepts">02 Concepts</a>
+          <a class="season-cell" href="#sec-simulator" data-target="sec-simulator">03 Simulator</a>
+          <a class="season-cell" href="#sec-flashcards" data-target="sec-flashcards">04 Terms</a>
+          <a class="season-cell" href="#sec-mistakes" data-target="sec-mistakes">05 Pitfalls</a>
+          <a class="season-cell" href="#sec-quiz" data-target="sec-quiz">06 Quiz</a>
+        </div>
+      </div>
+
+      <div class="asymmetric-grid">
+        <div class="card">
+          <p class="kicker">Why Defending Conifers Matters</p>
+          <h2 class="subhead" style="margin-bottom: var(--space-md);">Boreal forests face underground fungal threats that chemicals can no longer solve alone</h2>
+          <p>
+            Coniferous forests cover roughly <strong>1.37 billion hectares</strong> across the globe, storing vast amounts of terrestrial carbon and supplying timber, watershed protection, and biodiversity. From tiny nursery seedlings to mature timber stands, conifers—such as Scots pine (<em>Pinus sylvestris</em>), Norway spruce (<em>Picea abies</em>), Masson pine (<em>Pinus massoniana</em>), and Monterey pine (<em>Pinus radiata</em>)—are attacked by soil-borne pathogens causing damping-off and root rot.
+          </p>
+          <p>
+            The single most destructive forest pathogen in Europe and North America, <em>Heterobasidion annosum</em> sensu lato, causes hundreds of millions of euros in annual losses in Scandinavia alone, while <em>Fusarium</em> and <em>Rhizoctonia</em> species wipe out conifer nursery seedlings worldwide. Chemical fungicides (such as fosetyl-aluminium, metalaxyl, and carbendazim) are increasingly restricted by biosafety regulations, lose effectiveness as pathogens evolve resistance, and harm helpful soil microbes.
+          </p>
+          <p>
+            <strong>Microbial co-inoculation</strong> offers a biological alternative: introducing beneficial microbes—either a single helper before a pathogen arrives, or a complementary team of fungi and bacteria together—to outcompete pathogens directly and train the tree's immune system before infection strikes.
+          </p>
+        </div>
+
+        <!-- Single Pale-Leaf Highlight Card -->
+        <aside class="card is-leaf-highlight">
+          <p class="mono-label">Systematic Review Core Finding (2005–2026)</p>
+          <h3 class="subhead" style="margin: var(--space-xs) 0 var(--space-md);">Teamwork works—when conditions align</h3>
+          <p style="font-size: 0.98rem;">
+            Synthesizing <strong>20 primary experimental studies</strong> (screened from 430 database records), Awan &amp; Iqbal found that co-inoculation consistently outperforms single-agent treatments <strong>when applied prophylactically</strong> with functionally complementary microbes.
+          </p>
+          <div style="display: grid; gap: var(--space-sm); margin-top: var(--space-md);">
+            <div style="padding-top: var(--space-sm); border-top: var(--border-soft);">
+              <div class="key-figure">74%</div>
+              <div style="font-size: 0.9rem;">Reduction in <em>Fusarium oxysporum</em> severity in <em>P. massoniana</em> using a fungal–bacterial consortium (Yu et al., 2024).</div>
+            </div>
+            <div style="padding-top: var(--space-sm); border-top: var(--border-soft);">
+              <div class="key-figure">92%</div>
+              <div style="font-size: 0.9rem;">Drop in <em>H. parviporum</em> pathogen transcripts in Norway spruce co-infected with endophyte <em>P. sphaeroides</em> (Wen et al., 2021).</div>
+            </div>
+          </div>
+        </aside>
+      </div>
+
+      <!-- Evidence Scope Stat Row -->
+      <div class="stat-row">
+        <div class="stat-tile">
+          <span class="mono-label">Literature Screened</span>
+          <span class="key-figure">430 → 20</span>
+          <span class="stat-caption">Records screened across Web of Science, PubMed, Scopus &amp; CABI; 20 studies met inclusion criteria (2007–2026).</span>
+        </div>
+        <div class="stat-tile">
+          <span class="mono-label">JA/ET Signalling Share</span>
+          <span class="key-figure">69%</span>
+          <span class="stat-caption">9 of 13 pathway-assessable studies identified Jasmonic Acid / Ethylene as the dominant conifer defence axis.</span>
+        </div>
+        <div class="stat-tile">
+          <span class="mono-label">Exclusive Field Trials</span>
+          <span class="key-figure">0 / 20</span>
+          <span class="stat-caption">All reviewed evidence came from lab, greenhouse, or nursery-proximate trials—mature trees remain untested.</span>
+        </div>
+      </div>
+
+      <!-- Experimental Settings SVG Breakdown -->
+      <div class="chart-panel">
+        <h3 class="chart-title">Where the 20 reviewed experiments took place</h3>
+        <p class="chart-subtitle">Notice the sharp drop-off from sterile laboratory plates and greenhouses to real forest stands.</p>
+        <svg class="svg-chart" viewBox="0 0 720 220" role="img" aria-label="Horizontal bar chart showing experimental settings of the 20 reviewed studies: Greenhouse sterile 9, In vitro sterile 6, Mixed in vitro and chamber 2, Greenhouse non-sterile 1, Mixed greenhouse and field station 1, Mixed nursery and glasshouse 1, Exclusive field 0.">
+          <g font-family="Nunito Sans, sans-serif" font-size="13" fill="var(--on-surface)">
+            <text x="8" y="28" font-weight="600">Greenhouse / chamber (sterile substrate)</text>
+            <rect x="295" y="13" width="324" height="20" rx="6" fill="var(--data-1)" />
+            <text x="628" y="28" font-family="Geist Mono, monospace" font-weight="600" fill="var(--on-surface)">9 studies</text>
+
+            <text x="8" y="60" font-weight="600">In vitro plates (sterile agar/medium)</text>
+            <rect x="295" y="45" width="216" height="20" rx="6" fill="var(--data-1)" />
+            <text x="520" y="60" font-family="Geist Mono, monospace" font-weight="600" fill="var(--on-surface)">6 studies</text>
+
+            <text x="8" y="92" font-weight="600">Mixed in vitro &amp; growth chamber (sterile)</text>
+            <rect x="295" y="77" width="72" height="20" rx="6" fill="var(--data-2)" />
+            <text x="376" y="92" font-family="Geist Mono, monospace" font-weight="600" fill="var(--on-surface)">2 studies</text>
+
+            <text x="8" y="124" font-weight="600">Greenhouse (non-sterile natural peat)</text>
+            <rect x="295" y="109" width="36" height="20" rx="6" fill="var(--data-2)" />
+            <text x="340" y="124" font-family="Geist Mono, monospace" font-weight="600" fill="var(--on-surface)">1 study</text>
+
+            <text x="8" y="156" font-weight="600">Mixed greenhouse &amp; field station</text>
+            <rect x="295" y="141" width="36" height="20" rx="6" fill="var(--data-4)" />
+            <text x="340" y="156" font-family="Geist Mono, monospace" font-weight="600" fill="var(--on-surface)">1 study</text>
+
+            <text x="8" y="188" font-weight="600">Mixed commercial nursery &amp; glasshouse</text>
+            <rect x="295" y="173" width="36" height="20" rx="6" fill="var(--data-4)" />
+            <text x="340" y="188" font-family="Geist Mono, monospace" font-weight="600" fill="var(--on-surface)">1 study</text>
+
+            <text x="8" y="214" font-weight="700" fill="var(--error)">Exclusive operational field / plantation</text>
+            <rect x="295" y="200" width="4" height="16" rx="2" fill="var(--error)" />
+            <text x="308" y="213" font-family="Geist Mono, monospace" font-weight="600" fill="var(--error)">0 studies (Major translational gap)</text>
+          </g>
+        </svg>
+      </div>
+    </header>
+
+    <!-- SECTION 2: KEY CONCEPTS -->
+    <section class="study-section" id="sec-concepts" data-section-name="02 · Key Concepts">
+      <div class="section-header">
+        <p class="kicker">Core Curriculum · 5 Sequential Concepts</p>
+        <h2 class="section-title">How Microbial Teamwork Protects Conifer Roots and Reprograms Gene Expression</h2>
+      </div>
+
+      <div class="concept-stack">
+        <!-- Concept 1 -->
+        <article class="concept-block">
+          <div class="concept-top">
+            <h3 class="subhead">1. Dual Inoculation vs. Multi-Agent Consortia</h3>
+            <span class="concept-badge">Experimental Setup</span>
+          </div>
+          <div class="concept-columns">
+            <div>
+              <p>
+                In plant pathology, the phrase "co-inoculation" covers two different setups that answer different biological questions. <strong>Dual inoculation</strong> (a tripartite system) combines one beneficial microbe and one pathogen on a host tree to test whether the symbiont helps the host resist infection. By contrast, a <strong>multi-agent consortium</strong> applies two or more beneficial microbes together against a pathogen so their different weapons—such as enzymes, antifungal acids, and immune signals—reinforce each other. Separating these two designs prevents scientists from confusing simple host–symbiont compatibility with true microbe-to-microbe teamwork.
+              </p>
+              <div class="diagram-pair" style="margin-top: var(--space-md);">
+                <div class="diagram-node-card">
+                  <span class="pill-tag is-ochre">Tripartite Dual Inoculation</span>
+                  <p style="font-size: 0.92rem; margin-top: var(--space-xs);"><strong>1 Beneficial Microbe</strong> + <strong>1 Pathogen</strong> + <strong>Conifer Host</strong><br>Focus: host-symbiont compatibility &amp; competition.</p>
+                </div>
+                <div class="diagram-node-card">
+                  <span class="pill-tag">Multi-Agent Consortium</span>
+                  <p style="font-size: 0.92rem; margin-top: var(--space-xs);"><strong>2+ Beneficials</strong> (e.g., Fungus + Bacterium) + <strong>Pathogen</strong> + <strong>Host</strong><br>Focus: complementary modes of action &amp; synergy.</p>
+                </div>
+              </div>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: var(--space-md);">
+              <div class="example-box">
+                <div class="example-box-title">Real-Life Conifer Example</div>
+                <p style="font-size: 0.95rem;">
+                  In Masson pine (<em>Pinus massoniana</em>), a multi-agent consortium of the fungus <em>Trichoderma longibrachiatum</em> (strain 3Y) and the rhizobacterium <em>Burkholderia stabilis</em> (strain K29) reduced <em>Fusarium oxysporum</em> damping-off severity by <strong>74%</strong>, beating either single microbe (Yu et al., 2024). Meanwhile, in Norway spruce, dual inoculation with the dark septate endophyte <em>Phialocephala sphaeroides</em> cut <em>Heterobasidion parviporum</em> transcripts by <strong>92%</strong> (Wen et al., 2021).
+                </p>
+              </div>
+              <div class="formula-band">
+                <span class="mono-label">Conceptual Model</span>
+                <div class="formula-code">Consortium Synergy = Direct Enzymatic Attack (Agent A) + Antifungal Metabolites / Immune Priming (Agent B) &gt; Best Single Agent</div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Concept 2 -->
+        <article class="concept-block">
+          <div class="concept-top">
+            <h3 class="subhead">2. Prophylactic Timing &amp; Conditions for Superior Biocontrol</h3>
+            <span class="concept-badge">Ecological Timing</span>
+          </div>
+          <div class="concept-columns">
+            <div>
+              <p>
+                Co-inoculation does not automatically outperform single-agent treatments; its success depends on three strict biological conditions. First, <strong>prophylactic timing</strong> is crucial—the beneficial microbe must arrive ahead of the pathogen to colonize root tissues and alert host defenses. Second, co-applied agents need <strong>mechanistic non-overlap</strong> so one attacks the pathogen while the other primes the host or recruits helpful rhizosphere bacteria. Third, the <strong>host–pathogen pairing must be physiologically receptive</strong>, because incompatible strains can cancel protection or even worsen infection.
+              </p>
+              <div class="formula-band" style="margin-top: var(--space-md);">
+                <span class="mono-label">Three-Factor Efficacy Equation</span>
+                <div class="formula-code">Superior Protection = Prophylactic Lead Time (Δt) × Complementary Mechanisms × Host Receptivity</div>
+                <span style="font-size: 0.875rem; color: var(--on-surface-variant);">If Δt = 0 h (simultaneous) or if a microbe suppresses immunity while failing to kill a tolerant pathogen, protection fails.</span>
+              </div>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: var(--space-md);">
+              <div class="example-box">
+                <div class="example-box-title">Real-Life Conifer Examples (Success vs. Failure)</div>
+                <p style="font-size: 0.95rem;">
+                  <strong>Success with lead time:</strong> In Scots pine, pre-inoculating harmless binucleate <em>Rhizoctonia</em> (BNR) <strong>168 hours (7 days)</strong> before pathogenic uninucleate <em>Rhizoctonia</em> (UNR) suppressed pathogen DNA, whereas simultaneous inoculation let the pathogen win root sites (Grönberg et al., 2009).
+                </p>
+                <p style="font-size: 0.95rem;">
+                  <strong>Failure ("Pillar Collapse"):</strong> <em>Streptomyces</em> sp. AcH 505 suppressed Norway spruce immunity during colonization; when challenged by <em>H. abietinum</em> strain 331 (98% tolerant to its antibiotic WS-5995 B), root infection actually <em>increased</em> (Lehr et al., 2007).
+                </p>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Concept 3 -->
+        <article class="concept-block">
+          <div class="concept-top">
+            <h3 class="subhead">3. Defence Priming: Transcriptional Amplification vs. Transcriptional Calm</h3>
+            <span class="concept-badge">Immune Strategy</span>
+          </div>
+          <div class="concept-columns">
+            <div>
+              <p>
+                Running immune factories at full blast all the time wastes energy a young tree needs for roots and needles. Instead, beneficial microbes establish <strong>defence priming</strong>—an alert "ready-but-restrained" state where defenses trigger faster and broader only when a pathogen attacks, preserving seedling growth. Surprisingly, the review discovered two opposite gene-expression signatures that both yield healthier trees. In <strong>transcriptional amplification</strong>, consortia unlock thousands of extra defence genes upon challenge; in <strong>ecological displacement</strong>, an early colonizer physically blocks infection sites so strongly that stress genes stay quiet ("transcriptional calm").
+              </p>
+              <div class="diagram-pair" style="margin-top: var(--space-md);">
+                <div class="diagram-node-card">
+                  <span class="pill-tag">Path A: Transcriptional Amplification</span>
+                  <p style="font-size: 0.9rem; margin-top: var(--space-xs);">Beneficials pre-load immune pathways → pathogen arrival triggers massive, broad gene surge + preserved photosynthesis.</p>
+                </div>
+                <div class="diagram-node-card">
+                  <span class="pill-tag is-ochre">Path B: Ecological Displacement</span>
+                  <p style="font-size: 0.9rem; margin-top: var(--space-xs);">Endophyte occupies outer root cortex first → pathogen cannot enter → tissue stays undamaged → low stress-gene expression.</p>
+                </div>
+              </div>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: var(--space-md);">
+              <div class="example-box">
+                <div class="example-box-title">Real-Life Conifer Example</div>
+                <p style="font-size: 0.95rem;">
+                  <strong>Amplification &amp; Buffering:</strong> In <em>P. massoniana</em>, <em>T. longibrachiatum</em> + <em>B. stabilis</em> induced <strong>8,541 differentially expressed genes (DEGs)</strong> tied to antioxidant enzymes and photosynthesis (Yu et al., 2024). In Scots pine, the ectomycorrhizal fungus <em>Suillus luteus</em> buffered root growth while preventing runaway defense costs (Wen et al., 2025).
+                </p>
+                <p style="font-size: 0.95rem;">
+                  <strong>Transcriptional Calm:</strong> Scots pine roots pre-treated with BNR had <em>lower</em> <em>PAL</em> and <em>STS</em> transcripts than pathogen-only plants because physical blocking prevented cell damage (Grönberg et al., 2009).
+                </p>
+              </div>
+              <div class="formula-band">
+                <span class="mono-label">Design Principle</span>
+                <div class="formula-code">Ideal Protection = Transcriptional Primer (Immune Alert) + Ecological Competitor (Physical Block)</div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Concept 4 -->
+        <article class="concept-block">
+          <div class="concept-top">
+            <h3 class="subhead">4. Host Transcriptomic Responses &amp; Six Recurrent Defence Gene Families</h3>
+            <span class="concept-badge">Molecular Genomics</span>
+          </div>
+          <div>
+            <p>
+              To observe how conifers respond internally, scientists measure mRNA transcripts using older targeted tests (qRT-PCR, cDNA microarrays) or newer genome-wide <strong>Illumina RNA-seq</strong> and <strong>dual RNA-seq</strong> (which reads host and fungal genes simultaneously). Across 20 studies, six defense gene families stood out: the phenylpropanoid pathway (making lignin and stilbenes to fortify cell walls), pathogenesis-related (PR) proteins, jasmonate/ethylene genes, peroxidases, antimicrobial peptides, and oxidative stress enzymes. Notice that fold-changes are huge in wounded bark attacked by necrotrophs, whereas beneficial priming triggers milder, controlled increases. Scientists also warn that mRNA changes do not automatically prove active proteins are built—a critical gap called the <strong>transcriptome–phenotype assumption</strong>.
+            </p>
+          </div>
+
+          <div class="concept-columns">
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Rank</th>
+                    <th>Gene Family / Pathway</th>
+                    <th>Key Marker Genes</th>
+                    <th>Biological Role</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="num-cell">1</td>
+                    <td><strong>Phenylpropanoid Pathway</strong></td>
+                    <td class="num-cell">PAL, 4CL, CCR, STS</td>
+                    <td>Builds lignin barriers &amp; antifungal stilbenes</td>
+                  </tr>
+                  <tr>
+                    <td class="num-cell">2</td>
+                    <td><strong>Pathogenesis-Related (PR)</strong></td>
+                    <td class="num-cell">PR1, PR3, PR5, PR10</td>
+                    <td>Chitinases (PR3) &amp; thaumatins (PR5) attack fungal walls</td>
+                  </tr>
+                  <tr>
+                    <td class="num-cell">3</td>
+                    <td><strong>JA / ET Signalling</strong></td>
+                    <td class="num-cell">LOX, AOS, JAZ, ACS, ERF</td>
+                    <td>Master hormonal switches coordinating induced resistance</td>
+                  </tr>
+                  <tr>
+                    <td class="num-cell">4</td>
+                    <td><strong>Peroxidases</strong></td>
+                    <td class="num-cell">POX, PER, Pero-1, POD</td>
+                    <td>Cross-link cell walls &amp; regulate reactive oxygen species</td>
+                  </tr>
+                  <tr>
+                    <td class="num-cell">5</td>
+                    <td><strong>Antimicrobial Peptides</strong></td>
+                    <td class="num-cell">PsDef1–4, Sp-AMP</td>
+                    <td>Rapidly disrupt invading fungal membranes</td>
+                  </tr>
+                  <tr>
+                    <td class="num-cell">6</td>
+                    <td><strong>Oxidative Stress Defence</strong></td>
+                    <td class="num-cell">SOD, CAT, GST</td>
+                    <td>Detoxify excess free radicals during immune bursts</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: var(--space-md);">
+              <div class="example-box">
+                <div class="example-box-title">Real-Life Fold-Change Extremes (Table 2 in Review)</div>
+                <p style="font-size: 0.94rem;">
+                  <strong>Pathogen / Wounded Bark Surge:</strong> In Norway spruce challenged by <em>H. parviporum</em>, <em>PR1</em> surged <strong>~212,000-fold</strong> (Arnerup et al., 2011). In pre-wounded Scots pine phloem infected with <em>H. annosum</em>, <em>AMP</em> rose <strong>45,915.5-fold</strong> and thaumatin <strong>32,834.7-fold</strong> (Sun et al., 2011).
+                </p>
+                <p style="font-size: 0.94rem;">
+                  <strong>Beneficial ISR Magnitude:</strong> In Monterey pine protected by <em>Clonostachys rosea</em> against <em>F. circinatum</em>, chitinase <em>PR3</em> increased a much more targeted <strong>~62-fold</strong> alongside a <strong>45–50% drop</strong> in lesion length (Moraga-Suazo et al., 2024).
+                </p>
+              </div>
+              <div class="formula-band">
+                <span class="mono-label">Statistical Rigour Note (FDR Control)</span>
+                <div class="formula-code">Valid Genome-Wide DEG = Transcript Fold-Change + False Discovery Rate (BH adj. p &lt; 0.05) + qPCR / Protein Validation</div>
+                <span style="font-size: 0.85rem; color: var(--on-surface-variant);">Only 5 of 20 studies (all published 2021–2025) applied FDR-controlled Illumina RNA-seq.</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Concept 5 -->
+        <article class="concept-block">
+          <div class="concept-top">
+            <h3 class="subhead">5. JA/ET vs. SA Signalling: Why Conifers Break the Angiosperm Rule</h3>
+            <span class="concept-badge">Hormone Signalling</span>
+          </div>
+          <div class="concept-columns">
+            <div>
+              <p>
+                In textbook flowering plants (angiosperms like <em>Arabidopsis</em>), two hormone pathways usually act as rivals: <strong>Salicylic Acid (SA)</strong> fights biotrophs, while <strong>Jasmonic Acid and Ethylene (JA/ET)</strong> fight necrotrophs and suppress SA. Across the 13 conifer studies where hormone pathways could be assigned, <strong>JA/ET was dominant in 69% (9/13)</strong>, acting as a conserved hormonal scaffold through genes such as <em>LOX</em>, <em>AOS</em>, <em>AOC</em>, <em>COI1</em>, and <em>ACS</em>. However, <strong>23% (3/13)</strong> showed both JA/ET and SA switching on together—likely coordinated through MAPK signalling hubs—and <strong>8% (1/13)</strong> relied on SA alone in non-sterile nursery soil. Clearly, conifers use a flexible, cooperative hormone network rather than strict antagonism.
+              </p>
+              <div class="formula-band" style="margin-top: var(--space-md);">
+                <span class="mono-label">Conserved JA/ET Cascade &amp; Non-Antagonism Model</span>
+                <div class="formula-code">Beneficial / Stress Cue → LOX → AOS → AOC → JAZ Degradation (COI1) → MYC2 / ERF → PR3, PAL, Defensins</div>
+                <div class="formula-code" style="margin-top: var(--space-xs); color: var(--primary);">MAPK Hub → Co-activates JA/ET (ERF1) + SA (PR1) in 23% of assessable studies</div>
+              </div>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: var(--space-md);">
+              <!-- Hormone Breakdown Chart -->
+              <div class="chart-panel">
+                <h4 class="chart-title">Primary hormone pathway across 13 assessable studies</h4>
+                <p class="chart-subtitle">7 of 20 studies could not be pathway-classified (enzyme assays or fungal-only focus).</p>
+                <svg class="svg-chart" viewBox="0 0 460 155" role="img" aria-label="Bar chart of primary hormone signalling: JA/ET dominant 69% (9 studies), Dual JA/ET and SA co-activation 23% (3 studies), SA primary 8% (1 study).">
+                  <g font-family="Nunito Sans, sans-serif" font-size="13" fill="var(--on-surface)">
+                    <text x="4" y="26" font-weight="700">JA/ET Dominant (9/13)</text>
+                    <rect x="4" y="34" width="310" height="22" rx="6" fill="var(--data-1)" />
+                    <text x="322" y="50" font-family="Geist Mono, monospace" font-weight="600" fill="var(--primary)">69%</text>
+
+                    <text x="4" y="78" font-weight="700">Dual JA/ET + SA Co-activation (3/13)</text>
+                    <rect x="4" y="86" width="104" height="22" rx="6" fill="var(--data-2)" />
+                    <text x="116" y="102" font-family="Geist Mono, monospace" font-weight="600" fill="var(--tertiary)">23%</text>
+
+                    <text x="4" y="130" font-weight="700">SA Primary, JA Undetectable (1/13)</text>
+                    <rect x="4" y="136" width="36" height="16" rx="5" fill="var(--data-4)" />
+                    <text x="48" y="149" font-family="Geist Mono, monospace" font-weight="600" fill="var(--data-4)">8%</text>
+                  </g>
+                </svg>
+              </div>
+
+              <div class="example-box">
+                <div class="example-box-title">Real-Life Divergence: Nursery Compost Tea</div>
+                <p style="font-size: 0.94rem;">
+                  In the sole non-sterile commercial nursery study (Otero et al., 2020), Monterey pine treated with aerated compost tea (containing <em>Bacillus subtilis</em>, <em>Pseudomonas</em>, and other microbes) showed a <strong>208% increase in SA</strong> via direct LC-MS measurement while JA stayed at <strong>0.00 ng g⁻¹</strong>, cutting pitch canker length by <strong>67%</strong>.
+                </p>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- SECTION 3: INTERACTIVE SIMULATOR -->
+    <section class="study-section" id="sec-simulator" data-section-name="03 · Efficacy Explorer">
+      <div class="section-header">
+        <p class="kicker">Interactive Lab Model · Test Biological Variables</p>
+        <h2 class="section-title">Explore How Timing, Teamwork, and Pathosystem Shape Biocontrol Outcomes</h2>
+        <p style="color: var(--on-surface-variant); margin-top: var(--space-xs);">
+          Adjust the experiment parameters below to see how prophylactic lead time and agent complementarity alter disease suppression and host defence states, anchored to verified benchmarks from the 20 reviewed studies.
+        </p>
+      </div>
+
+      <div class="sim-shell">
+        <div class="sim-controls">
+          <div class="control-group">
+            <label class="control-label" for="sim-pathosystem">1. Conifer Pathosystem</label>
+            <select class="control-select" id="sim-pathosystem">
+              <option value="masson">Pinus massoniana × Fusarium oxysporum (Damping-off)</option>
+              <option value="spruce">Picea abies × Heterobasidion parviporum (Root rot)</option>
+              <option value="radiata">Pinus radiata × Fusarium circinatum (Pitch canker)</option>
+              <option value="scots">Pinus sylvestris × Rhizoctonia UNR (Root colonization)</option>
+            </select>
+          </div>
+
+          <div class="control-group">
+            <span class="control-label">2. Inoculation Design</span>
+            <div class="segmented-row" role="group" aria-label="Inoculation design">
+              <button type="button" class="seg-btn" data-strategy="single" aria-pressed="false">Single Agent</button>
+              <button type="button" class="seg-btn" data-strategy="dual" aria-pressed="false">Dual Symbiont</button>
+              <button type="button" class="seg-btn" data-strategy="consortium" aria-pressed="true">Consortium</button>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <div class="control-label">
+              <label for="sim-lead-slider">3. Prophylactic Lead Time (Δt before pathogen)</label>
+              <span id="sim-lead-badge" style="color: var(--primary);">168 h (7 days)</span>
+            </div>
+            <div class="slider-pair">
+              <input type="range" id="sim-lead-slider" min="0" max="168" step="24" value="168">
+              <input type="number" id="sim-lead-num" class="num-input" min="0" max="168" step="24" value="168" aria-label="Lead time in hours">
+            </div>
+            <span style="font-size: 0.85rem; color: var(--on-surface-variant);">0 h = simultaneous application; 168 h = benchmark pre-inoculation window (Grönberg et al., 2009).</span>
+          </div>
+
+          <div class="control-group">
+            <span class="control-label">4. Agent Mechanism Profile</span>
+            <div class="segmented-two" role="group" aria-label="Mechanism profile">
+              <button type="button" class="seg-btn" data-mech="complementary" aria-pressed="true">Complementary (Non-overlapping)</button>
+              <button type="button" class="seg-btn" data-mech="suppressive" aria-pressed="false">Immune-Suppressing / Single-Weapon</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="sim-output" aria-live="polite">
+          <div class="sim-status-banner" id="sim-status-banner">
+            <span class="mono-label" id="sim-status-tag" style="color: inherit;">Optimal Prophylactic Synergy</span>
+            <strong id="sim-status-headline" style="font-size: 1.1rem;">Strong disease suppression with active JA/ET priming</strong>
+            <span id="sim-status-desc" style="font-size: 0.93rem;">Beneficial agents establish before pathogen arrival and combine distinct modes of action.</span>
+          </div>
+
+          <div class="sim-metrics-grid">
+            <div class="sim-metric-box">
+              <span class="mono-label">Modeled Suppression Index</span>
+              <div class="key-figure" id="sim-efficacy-val">74%</div>
+              <div class="sim-bar-track">
+                <div class="sim-bar-fill" id="sim-efficacy-bar" style="width: 74%;"></div>
+              </div>
+              <span style="font-size: 0.82rem; color: var(--on-surface-variant); display: block; margin-top: var(--space-xs);" id="sim-metric-note">Matches consortium benchmark</span>
+            </div>
+            <div class="sim-metric-box">
+              <span class="mono-label">Host Transcriptomic State</span>
+              <div style="font-family: var(--font-headline); font-size: 1.15rem; font-weight: 600; margin-top: var(--space-xs); color: var(--on-surface);" id="sim-transcript-state">Transcriptional Amplification</div>
+              <span style="font-size: 0.86rem; color: var(--on-surface-variant); display: block; margin-top: var(--space-xs);" id="sim-pathway-note">JA/ET + antioxidant enzymes (SOD, POD)</span>
+            </div>
+          </div>
+
+          <div class="example-box">
+            <div class="example-box-title">Closest Empirical Benchmark from Review</div>
+            <p style="font-size: 0.93rem;" id="sim-benchmark-text">
+              In <em>Pinus massoniana</em> × <em>F. oxysporum</em>, co-inoculating <em>T. longibrachiatum</em> 3Y + <em>B. stabilis</em> K29 cut disease severity by 74% and activated 8,541 DEGs (Yu et al., 2024).
+            </p>
+          </div>
+          <p style="font-size: 0.82rem; color: var(--on-surface-variant); margin: 0;">
+            <em>Note: Intermediate slider steps show a conceptual model calibrated to the manuscript's reported endpoints; exact cited percentages appear in the benchmark box.</em>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: FLIP CARDS -->
+    <section class="study-section" id="sec-flashcards" data-section-name="04 · Key Terms">
+      <div class="section-header">
+        <p class="kicker">Active Recall · 8 Essential Terms</p>
+        <h2 class="section-title">Master the Vocabulary of Conifer Microbial Biocontrol</h2>
+      </div>
+
+      <div class="flashcard-toolbar">
+        <div>
+          <span class="mono-label">Mastery Tracker</span>
+          <div style="font-weight: 700; font-size: 1.05rem;" id="flashcard-counter">0 of 8 cards marked understood</div>
+        </div>
+        <div style="display: flex; gap: var(--space-sm); flex-wrap: wrap;">
+          <button type="button" class="btn btn-secondary" id="btn-flip-all-fronts">Reset All Flips</button>
+          <button type="button" class="btn btn-secondary" id="btn-reset-mastery">Clear Mastery</button>
+        </div>
+      </div>
+
+      <div class="card-grid" id="flashcard-grid">
+        <!-- Rendered by JS -->
+      </div>
+    </section>
+
+    <!-- SECTION 5: COMMON MISTAKES -->
+    <section class="study-section" id="sec-mistakes" data-section-name="05 · Common Mistakes">
+      <div class="section-header">
+        <p class="kicker">Exam &amp; Research Pitfalls</p>
+        <h2 class="section-title">Five Common Misconceptions Students Make on This Topic</h2>
+      </div>
+
+      <div class="mistakes-grid">
+        <article class="mistake-card">
+          <span class="mono-label">Misconception 01 · Terminology</span>
+          <div class="myth-banner">Myth: "Dual inoculation and multi-agent consortium mean the exact same thing."</div>
+          <div class="reality-banner">
+            <strong>Reality:</strong> In conifer studies, "dual inoculation" often means <em>one</em> beneficial microbe plus <em>one</em> pathogen (a tripartite interaction testing host–symbiont compatibility), whereas a "multi-agent consortium" applies <em>two or more beneficial microbes</em> together against a pathogen to test microbe–microbe synergy.
+          </div>
+        </article>
+
+        <article class="mistake-card">
+          <span class="mono-label">Misconception 02 · Plant Hormones</span>
+          <div class="myth-banner">Myth: "JA and SA hormones always block each other in conifers, just like in <em>Arabidopsis</em>."</div>
+          <div class="reality-banner">
+            <strong>Reality:</strong> While JA/ET dominated 69% of assessable studies, <strong>23%</strong> showed simultaneous JA/ET and SA co-activation (likely via MAPK hubs), and one non-sterile nursery trial found <strong>SA up 208%</strong> with undetectable JA (0.00 ng g⁻¹). Angiosperm antagonism rules cannot be blindly applied to gymnosperms.
+          </div>
+        </article>
+
+        <article class="mistake-card">
+          <span class="mono-label">Misconception 03 · Transcripts vs. Survival</span>
+          <div class="myth-banner">Myth: "High root colonization or high defense mRNA automatically guarantees disease protection."</div>
+          <div class="reality-banner">
+            <strong>Reality:</strong> <em>Gomphidius viscidus</em> colonized <em>P. tabuliformis</em> heavily without triggering PR proteins or stopping damping-off (Zhang et al., 2011). Likewise, a mycovirus triggered dual JA+SA transcripts in <em>P. radiata</em> without reducing seedling mortality (88.3% vs 93.3%; Zamora-Ballesteros et al., 2025).
+          </div>
+        </article>
+
+        <article class="mistake-card">
+          <span class="mono-label">Misconception 04 · Timing &amp; Safety</span>
+          <div class="myth-banner">Myth: "Applying a biocontrol microbe at the same time as a pathogen works fine, and antibiotics never backfire."</div>
+          <div class="reality-banner">
+            <strong>Reality:</strong> Simultaneous inoculation lets pathogens seize root sites first (Grönberg et al., 2009 required 168 h lead time). Worse, <em>Streptomyces</em> AcH 505 suppressed spruce immunity while failing to kill antibiotic-tolerant <em>H. abietinum</em> 331, causing "pillar collapse" and worse infection (Lehr et al., 2007).
+          </div>
+        </article>
+
+        <article class="mistake-card">
+          <span class="mono-label">Misconception 05 · Translational Reality</span>
+          <div class="myth-banner">Myth: "Greenhouse seedling percentages prove co-inoculation is ready for mature forest plantations."</div>
+          <div class="reality-banner">
+            <strong>Reality:</strong> Zero of the 20 reviewed studies tested exclusive operational field conditions or mature timber-age trees, and none tracked pathogen evolution or provided economic cost-benefit models versus fungicides. Lab efficacy is a starting point, not an operational guarantee.
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- SECTION 6: 10-QUESTION QUIZ -->
+    <section class="study-section" id="sec-quiz" data-section-name="06 · Mastery Quiz">
+      <div class="section-header">
+        <p class="kicker">Check Your Understanding · 10 Questions</p>
+        <h2 class="section-title">Class 12 Self-Check Quiz with Instant Feedback</h2>
+      </div>
+
+      <div class="quiz-shell">
+        <div class="quiz-scorebar">
+          <div>
+            <span class="mono-label">Quiz Score</span>
+            <div style="font-family: var(--font-headline); font-size: 1.35rem; font-weight: 600;" id="quiz-score-display">0 / 10 correct (0 answered)</div>
+          </div>
+          <button type="button" class="btn btn-secondary" id="btn-reset-quiz">Reset Quiz</button>
+        </div>
+
+        <div id="quiz-container" style="display: flex; flex-direction: column; gap: var(--space-lg);">
+          <!-- Questions rendered by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- SOURCE ATTRIBUTION FOOTER -->
+    <footer class="source-footer">
+      <p class="mono-label" style="margin-bottom: var(--space-xs);">Grounded Source Material</p>
+      <p>
+        All concepts, quantitative benchmarks, gene families, and methodological critiques in this study page are drawn from: Awan, H. U. M., &amp; Iqbal, M., <em>"Microbial Co-inoculation for Biological Control of Forest Diseases in Conifers: A Systematic Review of Defence Mechanisms and Host Transcriptomic Responses"</em> (2005–2026 synthesis of 430 screened records and 20 primary studies), including primary findings from Adomas et al. (2008), Arnerup et al. (2011, 2013), Grönberg et al. (2009), Lehr et al. (2007, 2008), Moraga-Suazo et al. (2024), Otero et al. (2020), Sun et al. (2011), Wang et al. (2022, 2025), Wen et al. (2021, 2025), Yu et al. (2024), Yusypovych et al. (2025), Zamora-Ballesteros et al. (2025), and Zhang et al. (2011).
+      </p>
+    </footer>
+  </main>
+
+  <api-shim></api-shim>
+  <script>
+    (function () {
+      'use strict';
+
+      var FLASHCARDS = [
+        {
+          id: `fc-1`,
+          category: `Experimental Design`,
+          term: `Dual Inoculation (Tripartite)`,
+          definition: `Applying one beneficial microbe alongside one pathogen on a conifer host to test host-symbiont compatibility and disease suppression.`
+        },
+        {
+          id: `fc-2`,
+          category: `Experimental Design`,
+          term: `Multi-Agent Consortium`,
+          definition: `Applying two or more functionally complementary beneficial microbes (such as a fungus plus a bacterium) together to overpower a pathogen through distinct mechanisms.`
+        },
+        {
+          id: `fc-3`,
+          category: `Host Immunity`,
+          term: `Defence Priming`,
+          definition: `An immunological alert state where beneficial microbes pre-load host defence pathways so they react faster and stronger upon pathogen attack without wasting growth energy beforehand.`
+        },
+        {
+          id: `fc-4`,
+          category: `Molecular Signature`,
+          term: `Transcriptional Amplification`,
+          definition: `A priming outcome where co-inoculation unlocks a much larger, broader surge of defence genes (e.g., 8,541 DEGs in Masson pine) than any single microbe alone.`
+        },
+        {
+          id: `fc-5`,
+          category: `Molecular Signature`,
+          term: `Ecological Displacement ("Transcriptional Calm")`,
+          definition: `Protection where an early-arriving beneficial endophyte physically blocks root infection sites so the pathogen never enters—keeping host stress transcripts low.`
+        },
+        {
+          id: `fc-6`,
+          category: `Whole-Plant Signalling`,
+          term: `Induced Systemic Resistance (ISR)`,
+          definition: `Immunity activated in distant tissues (such as stems or needles) that the beneficial root microbe never physically touched, requiring an unknown mobile chemical signal.`
+        },
+        {
+          id: `fc-7`,
+          category: `Biosafety Risk`,
+          term: `Pillar Collapse`,
+          definition: `A failure where a symbiont suppresses host immunity during colonization while failing to stop an antibiotic-tolerant pathogen, leaving the tree unprotected on both fronts.`
+        },
+        {
+          id: `fc-8`,
+          category: `Hormone Network`,
+          term: `Jasmonic Acid (JA) Hormonal Scaffold`,
+          definition: `The conserved JA/ET signalling module (LOX, AOS, COI1, MYC2/ERF) identified as the dominant defence axis in 69% of assessable conifer studies.`
+        }
+      ];
+
+      var QUIZ_QUESTIONS = [
+        {
+          id: `q1`,
+          prompt: `Why is relying only on chemical fungicides to protect conifer nurseries and forests becoming unsustainable?`,
+          options: [
+            `Chemical fungicides only target insect pests, not fungal root rots`,
+            `Pathogens evolve resistance, EU biosafety rules restrict them, and broad fumigation harms helpful soil microbes`,
+            `Conifer trees absorb chemical fungicides and convert them into jasmonic acid`,
+            `Chemical fungicides completely eliminate all Heterobasidion spores in one season`
+          ],
+          correct: 1,
+          explanation: `Strict EU regulations, emerging fungicide resistance in pathogens, and disruption of beneficial rhizosphere communities drive the search for biological control.`
+        },
+        {
+          id: `q2`,
+          prompt: `In the systematic review, what is the key difference between "dual inoculation" and a "multi-agent consortium"?`,
+          options: [
+            `Dual inoculation uses two pathogens; a consortium uses one pathogen and one tree`,
+            `Dual inoculation pairs one beneficial microbe with one pathogen; a consortium combines two or more beneficial microbes against a pathogen`,
+            `Dual inoculation only happens in field plantations; consortia only work on agar plates`,
+            `There is no difference; both terms always describe a mixture of three bacteria`
+          ],
+          correct: 1,
+          explanation: `Dual inoculation tests a single beneficial–pathogen–host trio, whereas a multi-agent consortium tests teamwork among multiple beneficial agents.`
+        },
+        {
+          id: `q3`,
+          prompt: `In Scots pine challenged with pathogenic Rhizoctonia (UNR), what happened when the protective endophyte (BNR) was applied at the exact same time (0 h) versus 168 h earlier?`,
+          options: [
+            `Simultaneous application gave 100% immunity, while 168 h pre-inoculation killed the roots`,
+            `Both timings triggered identical 45,000-fold stilbene synthase spikes`,
+            `Simultaneous application favored the pathogen, whereas 168 h prophylactic pre-inoculation suppressed pathogen root colonization`,
+            `BNR turned into a pathogen after 168 hours in sterile substrate`
+          ],
+          correct: 2,
+          explanation: `Beneficial agents need a prophylactic head start (168 hours in Grönberg et al., 2009) to occupy root niches before fast-growing pathogens arrive.`
+        },
+        {
+          id: `q4`,
+          prompt: `Which consortium and conifer system achieved a 74% reduction in disease severity alongside 8,541 differentially expressed genes?`,
+          options: [
+            `Suillus luteus alone on Pinus sylvestris against Heterobasidion annosum`,
+            `Trichoderma longibrachiatum 3Y + Burkholderia stabilis K29 on Pinus massoniana against Fusarium oxysporum`,
+            `Gomphidius viscidus on Pinus tabuliformis against Rhizoctonia solani`,
+            `Unuamitovirus fuci2 on Pinus radiata against Botrytis cinerea`
+          ],
+          correct: 1,
+          explanation: `Yu et al. (2024) demonstrated a 74% reduction in F. oxysporum severity in P. massoniana using this complementary fungal–bacterial consortium.`
+        },
+        {
+          id: `q5`,
+          prompt: `Why did Scots pine protected by BNR show LOWER PAL and STS defense transcripts than pathogen-only plants while still staying healthier?`,
+          options: [
+            `BNR physically blocked outer root infection sites (ecological displacement), keeping tissue undamaged in "transcriptional calm"`,
+            `BNR destroyed all host ribosomes so the pine seedling could not transcribe any mRNA`,
+            `PAL and STS only function in angiosperms, never in pine trees`,
+            `The seedlings were already dead when RNA was extracted`
+          ],
+          correct: 0,
+          explanation: `Lower defence transcripts under ecological displacement reflect the absence of tissue damage rather than immunological weakness.`
+        },
+        {
+          id: `q6`,
+          prompt: `Across the 13 studies where a hormone pathway could be assigned, how often did JA/ET signalling dominate versus dual JA/ET + SA co-activation?`,
+          options: [
+            `SA dominated in 90% of studies and JA/ET appeared in 10%`,
+            `JA/ET was dominant in 69% (9/13) and dual JA/ET + SA co-activation occurred in 23% (3/13)`,
+            `JA/ET and SA never appeared together in any conifer tissue`,
+            `Auxin and cytokinin replaced JA/ET in all 13 studies`
+          ],
+          correct: 1,
+          explanation: `JA/ET formed the conserved scaffold in 69% of assessable studies, while 23% showed cooperative co-activation of both JA/ET and SA.`
+        },
+        {
+          id: `q7`,
+          prompt: `What unexpected hormone result did Otero et al. (2020) measure by direct LC-MS in nursery-grown Pinus radiata treated with aerated compost tea?`,
+          options: [
+            `JA spiked 500% while SA stayed completely absent`,
+            `Both JA and SA dropped to zero during pitch canker infection`,
+            `SA increased by 208% while JA was undetectable (0.00 ng g⁻¹), cutting canker length by 67%`,
+            `Ethylene completely blocked root growth in the nursery`
+          ],
+          correct: 2,
+          explanation: `Using a complex compost tea consortium in non-sterile nursery soil, Otero et al. (2020) recorded the sole SA-primary outcome in the review.`
+        },
+        {
+          id: `q8`,
+          prompt: `What caused "pillar collapse" when Streptomyces sp. AcH 505 met Heterobasidion abietinum strain 331 on Norway spruce roots?`,
+          options: [
+            `The bacterium ate all the soil nitrogen needed for xylem formation`,
+            `The bacterium suppressed host root immunity to colonize, and strain 331 tolerated its antibiotic WS-5995 B, increasing infection`,
+            `The tree triggered a 212,000-fold PR1 burst that killed its own roots`,
+            `AcH 505 transformed into a mycovirus inside the phloem`
+          ],
+          correct: 1,
+          explanation: `Lehr et al. (2007) showed that suppressing host defence while facing an antibiotic-tolerant pathogen collapses both direct and host-mediated protection.`
+        },
+        {
+          id: `q9`,
+          prompt: `Why must scientists be cautious when comparing older qRT-PCR / microarray conifer studies with modern Illumina RNA-seq studies?`,
+          options: [
+            `Only 5 of 20 studies used FDR-controlled RNA-seq; targeted qPCR panels miss unmeasured pathways like SA and omit genome-wide multiple-testing correction`,
+            `Microarrays can only measure bacterial DNA, never pine mRNA`,
+            `qRT-PCR automatically deletes salicylic acid transcripts during amplification`,
+            `Modern RNA-seq does not require biological replicates or controls`
+          ],
+          correct: 0,
+          explanation: `Targeted panels of fewer than 15 genes only detect the pathways researchers choose to look for, potentially underestimating SA co-activation.`
+        },
+        {
+          id: `q10`,
+          prompt: `Which major translational gap still prevents laboratory co-inoculation findings from becoming immediate forestry recommendations?`,
+          options: [
+            `No conifer genomes exist at all in public databases`,
+            `Zero studies have tested exclusive operational field trials, mature timber-age trees, pathogen evolution, or economic cost-benefit ratios`,
+            `Ectomycorrhizal fungi cannot survive outside sterile agar Petri dishes`,
+            `Beneficial Trichoderma species are banned across all European horticulture`
+          ],
+          correct: 1,
+          explanation: `Argument V highlights three structural absences: no exclusive field/mature-tree validation, no evolutionary monitoring, and zero economic analysis.`
+        }
+      ];
+
+      var BENCHMARKS = {
+        masson: {
+          title: `Pinus massoniana × Fusarium oxysporum (Damping-off)`,
+          consortiumText: `Co-inoculating T. longibrachiatum 3Y + B. stabilis K29 cut damping-off severity by 74% and activated 8,541 DEGs; T. koningiopsis organic acids cut incidence by 73.3% (Yu et al., 2024; Wang et al., 2025).`,
+          dualText: `Single-strain treatments with T. longibrachiatum or B. stabilis significantly underperformed the combined consortium (Yu et al., 2024).`,
+          maxPct: 74,
+          pathway: `JA/ET + antioxidant enzymes (SOD, POD) + MAPK hub`
+        },
+        spruce: {
+          title: `Picea abies × Heterobasidion parviporum (Root rot)`,
+          consortiumText: `Complementary pairing combines P. sphaeroides competitive suppression (92% drop in pathogen transcripts) with systemic JA/SA priming seen in spruce bark (Wen et al., 2021; Wang et al., 2022).`,
+          dualText: `Dual inoculation with endophyte Phialocephala sphaeroides reduced H. parviporum transcript abundance by ~92% via JA signalling and pathogen gene suppression (Wang et al., 2022).`,
+          maxPct: 92,
+          pathway: `Canonical JA cascade (LOX, AOS, AOC, COI1, MYC2)`
+        },
+        radiata: {
+          title: `Pinus radiata × Fusarium circinatum (Pitch canker)`,
+          consortiumText: `Aerated compost tea consortium in non-sterile nursery soil cut canker length by 67% with a 208% SA surge (Otero et al., 2020).`,
+          dualText: `Preventive Clonostachys rosea Cr7 reduced lesion length by 45–50% and induced PR3 (~62-fold) and LOX in distant shoot apex tissue (Moraga-Suazo et al., 2024).`,
+          maxPct: 67,
+          pathway: `JA/ET ISR (C. rosea) or SA-mediated SAR (Compost tea)`
+        },
+        scots: {
+          title: `Pinus sylvestris × Rhizoctonia UNR (Root colonization)`,
+          consortiumText: `Combining an ecological competitor (BNR) with a JA-priming partner (e.g., S. luteus) is proposed as an ideal dual-strategy design to unite physical blocking and immune readiness.`,
+          dualText: `Pre-inoculating BNR 168 h before UNR reduced root colonization via ecological displacement ("transcriptional calm"), whereas simultaneous 0 h inoculation favored the pathogen (Grönberg et al., 2009).`,
+          maxPct: 65,
+          pathway: `Ecological displacement (low PAL/STS) or ECM buffering (S. luteus)`
+        }
+      };
+
+      var appState = {
+        flippedCards: {},
+        understoodCards: {},
+        quizAnswers: {},
+        sim: {
+          pathosystem: `masson`,
+          strategy: `consortium`,
+          leadHours: 168,
+          mech: `complementary`
+        }
+      };
+
+      function safeGetEl(id) {
+        return document.getElementById(id);
+      }
+
+      async function saveState() {
+        try {
+          if (window.notebookAppApi && typeof window.notebookAppApi.setAppState === `function`) {
+            await window.notebookAppApi.setAppState(appState);
+          }
+        } catch (err) {
+          /* Ignore storage errors in standalone view */
+        }
+      }
+
+      async function loadState() {
+        try {
+          if (window.notebookAppApi && typeof window.notebookAppApi.getAppState === `function`) {
+            var saved = await window.notebookAppApi.getAppState();
+            if (saved && typeof saved === `object`) {
+              if (saved.flippedCards) appState.flippedCards = saved.flippedCards;
+              if (saved.understoodCards) appState.understoodCards = saved.understoodCards;
+              if (saved.quizAnswers) appState.quizAnswers = saved.quizAnswers;
+              if (saved.sim) {
+                appState.sim.pathosystem = saved.sim.pathosystem || `masson`;
+                appState.sim.strategy = saved.sim.strategy || `consortium`;
+                appState.sim.leadHours = typeof saved.sim.leadHours === `number` ? saved.sim.leadHours : 168;
+                appState.sim.mech = saved.sim.mech || `complementary`;
+              }
+            }
+          }
+        } catch (err) {
+          /* Standalone fallback */
+        }
+      }
+
+      /* Simulator Logic */
+      function renderSimulator() {
+        var pathSel = safeGetEl(`sim-pathosystem`);
+        var slider = safeGetEl(`sim-lead-slider`);
+        var numInput = safeGetEl(`sim-lead-num`);
+        var leadBadge = safeGetEl(`sim-lead-badge`);
+        var banner = safeGetEl(`sim-status-banner`);
+        var statusTag = safeGetEl(`sim-status-tag`);
+        var statusHead = safeGetEl(`sim-status-headline`);
+        var statusDesc = safeGetEl(`sim-status-desc`);
+        var effVal = safeGetEl(`sim-efficacy-val`);
+        var effBar = safeGetEl(`sim-efficacy-bar`);
+        var metricNote = safeGetEl(`sim-metric-note`);
+        var txState = safeGetEl(`sim-transcript-state`);
+        var pwNote = safeGetEl(`sim-pathway-note`);
+        var benchText = safeGetEl(`sim-benchmark-text`);
+
+        if (!pathSel || !slider || !numInput) return;
+
+        pathSel.value = appState.sim.pathosystem;
+        slider.value = String(appState.sim.leadHours);
+        numInput.value = String(appState.sim.leadHours);
+        if (leadBadge) {
+          var days = (appState.sim.leadHours / 24).toFixed(1).replace(/\.0$/, ``);
+          leadBadge.textContent = appState.sim.leadHours + ` h (` + days + ` days)`;
+        }
+
+        var strategyBtns = document.querySelectorAll(`[data-strategy]`);
+        strategyBtns.forEach(function (btn) {
+          btn.setAttribute(`aria-pressed`, btn.dataset.strategy === appState.sim.strategy ? `true` : `false`);
+        });
+
+        var mechBtns = document.querySelectorAll(`[data-mech]`);
+        mechBtns.forEach(function (btn) {
+          btn.setAttribute(`aria-pressed`, btn.dataset.mech === appState.sim.mech ? `true` : `false`);
+        });
+
+        var bench = BENCHMARKS[appState.sim.pathosystem] || BENCHMARKS.masson;
+        var leadFactor = appState.sim.leadHours / 168;
+        var strategyMult = appState.sim.strategy === `consortium` ? 1.0 : (appState.sim.strategy === `dual` ? 0.82 : 0.62);
+
+        if (appState.sim.mech === `suppressive`) {
+          if (banner) banner.className = `sim-status-banner is-alert`;
+          if (statusTag) statusTag.textContent = `Pillar Collapse Risk`;
+          if (statusHead) statusHead.textContent = `Host immunity suppressed; vulnerable to tolerant pathogens`;
+          if (statusDesc) statusDesc.textContent = `Like Streptomyces AcH 505 facing tolerant H. abietinum 331, suppressing host defenses while relying on a single antibiotic can backfire and worsen root infection.`;
+          if (effVal) effVal.textContent = `0%–12%`;
+          if (effBar) {
+            effBar.style.width = `10%`;
+            effBar.style.backgroundColor = `var(--error)`;
+          }
+          if (metricNote) metricNote.textContent = `Risk of enhanced root infection`;
+          if (txState) txState.textContent = `Immune Attenuation`;
+          if (pwNote) pwNote.textContent = `Suppressed host peroxidase & protease inhibitors`;
+          if (benchText) benchText.textContent = `Lehr et al. (2007): Streptomyces AcH 505 suppressed spruce immunity and enhanced infection by WS-5995 B-tolerant H. abietinum 331.`;
+          return;
+        }
+
+        if (appState.sim.leadHours < 24) {
+          if (banner) banner.className = `sim-status-banner is-warn`;
+          if (statusTag) statusTag.textContent = `Timing Bottleneck (Δt = ` + appState.sim.leadHours + ` h)`;
+          if (statusHead) statusHead.textContent = `Pathogen races ahead for root infection sites`;
+          if (statusDesc) statusDesc.textContent = `Simultaneous application leaves beneficial microbes too little time to colonize roots or prime JA/ET signalling before the pathogen establishes.`;
+          var lowScore = Math.round(bench.maxPct * strategyMult * 0.35);
+          if (effVal) effVal.textContent = `~` + lowScore + `%`;
+          if (effBar) {
+            effBar.style.width = lowScore + `%`;
+            effBar.style.backgroundColor = `var(--tertiary)`;
+          }
+          if (metricNote) metricNote.textContent = `Sharply reduced due to missing lead time`;
+          if (txState) txState.textContent = `Unprimed Stress Response`;
+          if (pwNote) pwNote.textContent = `Pathogen-driven wound & necrotrophic surge`;
+          if (benchText) benchText.textContent = bench.dualText;
+          return;
+        }
+
+        var projected = Math.round(bench.maxPct * strategyMult * (0.55 + 0.45 * leadFactor));
+        if (appState.sim.strategy === `consortium` && appState.sim.leadHours === 168) {
+          projected = bench.maxPct;
+        }
+        if (banner) banner.className = `sim-status-banner`;
+        if (statusTag) statusTag.textContent = appState.sim.strategy === `consortium` ? `Optimal Prophylactic Synergy` : `Effective Prophylactic Protection`;
+        if (statusHead) statusHead.textContent = appState.sim.leadHours >= 120 ? `Strong suppression with established root priming` : `Moderate protection building with early colonization`;
+        if (statusDesc) statusDesc.textContent = appState.sim.strategy === `consortium`
+          ? `Complementary agents combine direct antagonism and host priming, outperforming single-agent treatments.`
+          : `Single or dual agent buffers host stress, though without multi-agent complementarity.`;
+        if (effVal) effVal.textContent = projected + `%`;
+        if (effBar) {
+          effBar.style.width = Math.min(100, projected) + `%`;
+          effBar.style.backgroundColor = `var(--primary)`;
+        }
+        if (metricNote) metricNote.textContent = appState.sim.strategy === `consortium` ? `Consortium protection model` : `Single/Dual comparison model`;
+
+        if (appState.sim.pathosystem === `scots` && appState.sim.strategy !== `consortium`) {
+          if (txState) txState.textContent = `Transcriptional Calm`;
+        } else {
+          if (txState) txState.textContent = appState.sim.strategy === `consortium` ? `Transcriptional Amplification` : `Targeted Defence Priming`;
+        }
+        if (pwNote) pwNote.textContent = bench.pathway;
+        if (benchText) benchText.textContent = appState.sim.strategy === `consortium` ? bench.consortiumText : bench.dualText;
+      }
+
+      function bindSimulatorControls() {
+        var pathSel = safeGetEl(`sim-pathosystem`);
+        var slider = safeGetEl(`sim-lead-slider`);
+        var numInput = safeGetEl(`sim-lead-num`);
+
+        if (pathSel) {
+          pathSel.addEventListener(`change`, function () {
+            appState.sim.pathosystem = pathSel.value;
+            renderSimulator();
+            saveState();
+          });
+        }
+        if (slider) {
+          slider.addEventListener(`input`, function () {
+            var val = Math.max(0, Math.min(168, Number(slider.value) || 0));
+            appState.sim.leadHours = val;
+            if (numInput) numInput.value = String(val);
+            renderSimulator();
+            saveState();
+          });
+        }
+        if (numInput) {
+          numInput.addEventListener(`input`, function () {
+            var val = Math.max(0, Math.min(168, Number(numInput.value) || 0));
+            appState.sim.leadHours = val;
+            if (slider) slider.value = String(val);
+            renderSimulator();
+            saveState();
+          });
+        }
+
+        document.querySelectorAll(`[data-strategy]`).forEach(function (btn) {
+          btn.addEventListener(`click`, function () {
+            appState.sim.strategy = btn.dataset.strategy;
+            renderSimulator();
+            saveState();
+          });
+        });
+
+        document.querySelectorAll(`[data-mech]`).forEach(function (btn) {
+          btn.addEventListener(`click`, function () {
+            appState.sim.mech = btn.dataset.mech;
+            renderSimulator();
+            saveState();
+          });
+        });
+      }
+
+      /* Flip Cards */
+      function updateFlashcardCounter() {
+        var counter = safeGetEl(`flashcard-counter`);
+        if (!counter) return;
+        var count = Object.keys(appState.understoodCards).filter(function (k) {
+          return Boolean(appState.understoodCards[k]);
+        }).length;
+        counter.textContent = count + ` of ` + FLASHCARDS.length + ` cards marked understood`;
+      }
+
+      function renderFlashcards() {
+        var grid = safeGetEl(`flashcard-grid`);
+        if (!grid) return;
+        grid.innerHTML = ``;
+
+        FLASHCARDS.forEach(function (card) {
+          var isFlipped = Boolean(appState.flippedCards[card.id]);
+          var isUnderstood = Boolean(appState.understoodCards[card.id]);
+
+          var wrapper = document.createElement(`div`);
+          wrapper.className = `flip-card` + (isFlipped ? ` is-flipped` : ``);
+
+          var inner = document.createElement(`div`);
+          inner.className = `flip-card-inner`;
+
+          /* Front */
+          var front = document.createElement(`div`);
+          front.className = `flip-face flip-front`;
+
+          var frontTop = document.createElement(`div`);
+          var catSpan = document.createElement(`span`);
+          catSpan.className = `mono-label`;
+          catSpan.textContent = card.category;
+          var termH = document.createElement(`h3`);
+          termH.className = `flip-term`;
+          termH.textContent = card.term;
+          frontTop.appendChild(catSpan);
+          frontTop.appendChild(termH);
+
+          var frontActions = document.createElement(`div`);
+          frontActions.className = `flip-actions`;
+          var flipBtnFront = document.createElement(`button`);
+          flipBtnFront.type = `button`;
+          flipBtnFront.className = `btn btn-primary`;
+          flipBtnFront.textContent = `Reveal Definition`;
+          flipBtnFront.setAttribute(`aria-label`, `Reveal definition for ` + card.term);
+          flipBtnFront.addEventListener(`click`, function () {
+            appState.flippedCards[card.id] = true;
+            wrapper.classList.add(`is-flipped`);
+            saveState();
+          });
+
+          var statusChip = document.createElement(`span`);
+          statusChip.className = `pill-tag` + (isUnderstood ? `` : ` is-ochre`);
+          statusChip.textContent = isUnderstood ? `Understood` : `Review`;
+
+          frontActions.appendChild(flipBtnFront);
+          frontActions.appendChild(statusChip);
+          front.appendChild(frontTop);
+          front.appendChild(frontActions);
+
+          /* Back */
+          var back = document.createElement(`div`);
+          back.className = `flip-face flip-back`;
+
+          var backTop = document.createElement(`div`);
+          var backLabel = document.createElement(`span`);
+          backLabel.className = `mono-label`;
+          backLabel.style.color = `var(--primary-container)`;
+          backLabel.textContent = card.term;
+          var defP = document.createElement(`p`);
+          defP.className = `flip-def`;
+          defP.style.marginTop = `var(--space-sm)`;
+          defP.textContent = card.definition;
+          backTop.appendChild(backLabel);
+          backTop.appendChild(defP);
+
+          var backActions = document.createElement(`div`);
+          backActions.className = `flip-actions`;
+
+          var flipBtnBack = document.createElement(`button`);
+          flipBtnBack.type = `button`;
+          flipBtnBack.className = `btn btn-on-dark`;
+          flipBtnBack.textContent = `Front`;
+          flipBtnBack.addEventListener(`click`, function () {
+            appState.flippedCards[card.id] = false;
+            wrapper.classList.remove(`is-flipped`);
+            saveState();
+          });
+
+          var gotItBtn = document.createElement(`button`);
+          gotItBtn.type = `button`;
+          gotItBtn.className = `btn btn-on-dark`;
+          gotItBtn.textContent = isUnderstood ? `Understood ✓` : `Mark Understood`;
+          gotItBtn.addEventListener(`click`, function () {
+            appState.understoodCards[card.id] = !appState.understoodCards[card.id];
+            renderFlashcards();
+            saveState();
+          });
+
+          backActions.appendChild(flipBtnBack);
+          backActions.appendChild(gotItBtn);
+          back.appendChild(backTop);
+          back.appendChild(backActions);
+
+          inner.appendChild(front);
+          inner.appendChild(back);
+          wrapper.appendChild(inner);
+          grid.appendChild(wrapper);
+        });
+
+        updateFlashcardCounter();
+      }
+
+      function bindFlashcardToolbar() {
+        var btnFlipFronts = safeGetEl(`btn-flip-all-fronts`);
+        var btnResetMastery = safeGetEl(`btn-reset-mastery`);
+        if (btnFlipFronts) {
+          btnFlipFronts.addEventListener(`click`, function () {
+            appState.flippedCards = {};
+            renderFlashcards();
+            saveState();
+          });
+        }
+        if (btnResetMastery) {
+          btnResetMastery.addEventListener(`click`, function () {
+            if (btnResetMastery.dataset.armed !== `true`) {
+              btnResetMastery.dataset.armed = `true`;
+              btnResetMastery.textContent = `Click again to clear`;
+              return;
+            }
+            btnResetMastery.dataset.armed = `false`;
+            btnResetMastery.textContent = `Clear Mastery`;
+            appState.understoodCards = {};
+            renderFlashcards();
+            saveState();
+          });
+        }
+      }
+
+      /* 10-Question Quiz */
+      function updateQuizScore() {
+        var scoreEl = safeGetEl(`quiz-score-display`);
+        if (!scoreEl) return;
+        var answered = 0;
+        var correct = 0;
+        QUIZ_QUESTIONS.forEach(function (q) {
+          if (typeof appState.quizAnswers[q.id] === `number`) {
+            answered += 1;
+            if (appState.quizAnswers[q.id] === q.correct) {
+              correct += 1;
+            }
+          }
+        });
+        scoreEl.textContent = correct + ` / ` + QUIZ_QUESTIONS.length + ` correct (` + answered + ` answered)`;
+      }
+
+      function renderQuiz() {
+        var container = safeGetEl(`quiz-container`);
+        if (!container) return;
+        container.innerHTML = ``;
+
+        var letters = [`A`, `B`, `C`, `D`];
+
+        QUIZ_QUESTIONS.forEach(function (q, qIndex) {
+          var chosen = appState.quizAnswers[q.id];
+          var isAnswered = typeof chosen === `number`;
+
+          var card = document.createElement(`article`);
+          card.className = `quiz-question-card`;
+
+          var qNum = document.createElement(`span`);
+          qNum.className = `mono-label`;
+          qNum.textContent = `Question ` + (qIndex + 1) + ` of ` + QUIZ_QUESTIONS.length;
+
+          var qTitle = document.createElement(`h3`);
+          qTitle.className = `quiz-q-title`;
+          qTitle.textContent = q.prompt;
+
+          var optsWrap = document.createElement(`div`);
+          optsWrap.className = `quiz-options`;
+
+          q.options.forEach(function (optText, optIndex) {
+            var btn = document.createElement(`button`);
+            btn.type = `button`;
+            btn.className = `quiz-opt-btn`;
+            if (isAnswered) {
+              btn.disabled = true;
+              if (optIndex === q.correct) {
+                btn.classList.add(`is-correct`);
+              } else if (optIndex === chosen) {
+                btn.classList.add(`is-wrong`);
+              }
+            }
+
+            var letterSpan = document.createElement(`span`);
+            letterSpan.className = `quiz-opt-letter`;
+            letterSpan.textContent = letters[optIndex] + `.`;
+
+            var textSpan = document.createElement(`span`);
+            textSpan.textContent = optText;
+
+            btn.appendChild(letterSpan);
+            btn.appendChild(textSpan);
+
+            btn.addEventListener(`click`, function () {
+              appState.quizAnswers[q.id] = optIndex;
+              renderQuiz();
+              saveState();
+            });
+
+            optsWrap.appendChild(btn);
+          });
+
+          var feedback = document.createElement(`div`);
+          feedback.className = `quiz-feedback` + (isAnswered ? ` is-visible ` + (chosen === q.correct ? `is-ok` : `is-err`) : ``);
+          if (isAnswered) {
+            var prefix = chosen === q.correct ? `Correct (` + letters[q.correct] + `): ` : `Incorrect — Correct option is ` + letters[q.correct] + `: `;
+            feedback.textContent = prefix + q.explanation;
+          }
+
+          card.appendChild(qNum);
+          card.appendChild(qTitle);
+          card.appendChild(optsWrap);
+          card.appendChild(feedback);
+          container.appendChild(card);
+        });
+
+        updateQuizScore();
+      }
+
+      function bindQuizReset() {
+        var resetBtn = safeGetEl(`btn-reset-quiz`);
+        if (!resetBtn) return;
+        resetBtn.addEventListener(`click`, function () {
+          if (resetBtn.dataset.armed !== `true`) {
+            resetBtn.dataset.armed = `true`;
+            resetBtn.textContent = `Click again to reset quiz`;
+            return;
+          }
+          resetBtn.dataset.armed = `false`;
+          resetBtn.textContent = `Reset Quiz`;
+          appState.quizAnswers = {};
+          renderQuiz();
+          saveState();
+        });
+      }
+
+      /* Scroll & Section Progress Tracker */
+      function updateScrollProgress() {
+        var fill = safeGetEl(`scroll-progress-fill`);
+        var pctEl = safeGetEl(`scroll-progress-pct`);
+        var track = safeGetEl(`scroll-progress-bar`);
+        var secLabel = safeGetEl(`progress-section-label`);
+
+        var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        var pct = docHeight > 0 ? Math.min(100, Math.max(0, Math.round((window.scrollY / docHeight) * 100))) : 0;
+
+        if (fill) fill.style.width = pct + `%`;
+        if (pctEl) pctEl.textContent = pct + `%`;
+        if (track) track.setAttribute(`aria-valuenow`, String(pct));
+
+        var sections = document.querySelectorAll(`[data-section-name]`);
+        var activeId = `sec-overview`;
+        var activeName = `01 · Overview`;
+        var threshold = window.scrollY + 140;
+
+        sections.forEach(function (sec) {
+          if (sec.offsetTop <= threshold) {
+            activeId = sec.id;
+            activeName = sec.dataset.sectionName || activeName;
+          }
+        });
+
+        if (secLabel) secLabel.textContent = activeName;
+
+        var navLinks = document.querySelectorAll(`#module-nav-cells a`);
+        var passedActive = false;
+        navLinks.forEach(function (link) {
+          var targetId = link.dataset.target;
+          link.classList.remove(`is-peak`, `is-prep`);
+          if (targetId === activeId) {
+            link.classList.add(`is-peak`);
+            passedActive = true;
+          } else if (!passedActive) {
+            link.classList.add(`is-prep`);
+          }
+        });
+      }
+
+      async function init() {
+        await loadState();
+        bindSimulatorControls();
+        renderSimulator();
+        bindFlashcardToolbar();
+        renderFlashcards();
+        bindQuizReset();
+        renderQuiz();
+
+        window.addEventListener(`scroll`, updateScrollProgress, { passive: true });
+        window.addEventListener(`resize`, updateScrollProgress);
+        updateScrollProgress();
+
+        if (window.notebookAppApi && typeof window.notebookAppApi.notifyAppReady === `function`) {
+          window.notebookAppApi.notifyAppReady();
+        }
+      }
+
+      if (document.readyState === `loading`) {
+        document.addEventListener(`DOMContentLoaded`, init);
+      } else {
+        init();
+      }
+    })();
+  </script>
+</body>
+</html>
